@@ -2,11 +2,11 @@ let mapleader =" "
 
 
 " PLUGINS
-call plug#begin()
-Plug 'junegunn/goyo.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'vimwiki/vimwiki'
-call plug#end()
+" call plug#begin()
+" Plug 'junegunn/goyo.vim'
+" Plug 'PotatoesMaster/i3-vim-syntax'
+" Plug 'vimwiki/vimwiki'
+" call plug#end()
 
 
 " BASIC SETTINGS
