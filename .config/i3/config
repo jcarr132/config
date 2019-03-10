@@ -19,7 +19,7 @@ font pango:System San Francisco Display 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec terminator
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -96,7 +96,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws0 "0"
+set $ws10 "10: Code"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -108,7 +108,7 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws0
+bindsym $mod+0 workspace $ws10
 
 # Scratchpad
 bindsym $mod+minus scratchpad show
@@ -141,11 +141,11 @@ for_window [window_role="caprine"] i3-msg floating enable move scratchpad move a
 
 
 #Startup applications
-exec --no-startup-id dropboxd start
+exec --no-startup-id dropbox
 exec --no-startup-id terminator -r mainTerminal
 exec --no-startup-id firefox
 exec --no-startup-id mailspring
-exec --no-startup-id caprine
+exec --no-startup-id ~/caprine
 exec --no-startup-id spotify
 exec --no-startup-id minetime
 exec --no-startup-id todoist
