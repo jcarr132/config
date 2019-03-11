@@ -1,8 +1,6 @@
-#alias python=python3.7
-#alias pip="python -m pip"
-alias nwp="python3 /home/josh/.local/bin/i3setrandomwallpaper.py; feh --bg-scale ~/Dropbox/Wallpapers/.current"
 alias i3conf="vim ~/.config/i3/config"
 alias onenote="/home/josh/opt/p3x-onenote-2019.2.17-17-x86_64.AppImage"
+alias light="sudo enlighten"
 
 #export WORKON_HOME=$HOME/.virtualenvs
 #source /usr/local/bin/virtualenvwrapper.sh
