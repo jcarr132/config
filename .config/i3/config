@@ -10,6 +10,10 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+focus_follows_mouse no
+
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -19,7 +23,7 @@ font pango:System San Francisco Display 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id terminator
+bindsym $mod+Return exec --no-startup-id urxvt
 
 # open enpass
 bindsym $mod+p exec --no-startup-id /opt/enpass/Enpass showassistant
@@ -28,7 +32,7 @@ bindsym $mod+p exec --no-startup-id /opt/enpass/Enpass showassistant
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_recency
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -49,6 +53,9 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+bindsym $mod+Ctrl+l workspace next
+bindsym $mod+Ctrl+h workspace prev
 
 # move focused window
 # remapped to vim keys again here
@@ -130,7 +137,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 
-assign [window_role="mainTerminal"]     $ws1
+assign [class="mainTerminal"]     $ws1
 assign [class="Firefox"]                $ws2
 assign [class="Mailspring"]             $ws3
 assign [class="Caprine"]                $ws3
@@ -139,21 +146,29 @@ assign [title="Todoist"]                $ws4
 assign [class="Code"]                   $ws10
 
 for_window [class="Spotify"] move container to workspace $ws5
-for_window [window_role="mainTerminal"] floating enable; move absolute position center
-for_window [window_role="mainTerminal"] move absolute position center
-for_window [window_role="caprine"] floating enable; move scratchpad; move absolute position center
-for_window [class="Todoist"] move container to workspace $ws4; resize shrink width 40px
+for_window [class="mainTerminal"] exec i3-msg "floating enable; move absolute position center; resize set 800 600"
+for_window [class="caprine"] exec i3-msg "move right; resize shrink width 40px or 40 ppt"
+for_window [class="Todoist"] exec i3-msg "move right; resize shrink width 40px or 40 ppt"
 
 
 #Startup applications
 exec --no-startup-id dropbox
-exec --no-startup-id terminator -r mainTerminal
+exec --no-startup-id urxvt -name mainTerminal
 exec --no-startup-id firefox
 exec --no-startup-id mailspring
 exec --no-startup-id ~/caprine
 exec --no-startup-id spotify
 exec --no-startup-id minetime
 exec --no-startup-id todoist
+
+# Manjaro default startup applications
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id clipit
+# exec --no-startup-id start_conky_maia
+exec --no-startup-id xautolock -time 10 -locker blurlock
 
 
 # reload the configuration file
@@ -162,6 +177,23 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Set shut down, restart and locking features
+bindsym $mod+Escape mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -189,10 +221,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsyn $mod+u resize shrink width 10px or 10ppt
-bindsyn $mod+i resize grow height 10px or 10 ppt
-bindsyn $mod+o resize shrink height 10px or 10ppt
-bindsyn $mod+p resize grow width 10px or 10ppt
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -237,27 +265,28 @@ bindsym $mod+m exec --no-startup-id .local/bin/i3expandmonitors
 # Collapse monitors ([META + Shift + m] after unplugging second monitor)
 # Script calls i3-msg to move all workspaces to primary monitor, then xrandr disables second monitor
 # If monitors names/ids change, script will need to be updated
-bindsyq $mod+Shift+m exec --no-startup-id .local/bin/i3collapsemonitors
+bindsym $mod+Shift+m exec --no-startup-id .local/bin/i3collapsemonitors
 #********************************************************************************#
 # SET DESKTOP WALLPAPER
 # Option 1: Hardcode path to wallpaper (uncomment line below)
 # exec python3 ~/.local/bin/i3setrandomwallpaper.py
 # exec --no-startup-id feh --bg-scale ~/Dropbox/Wallpapers/.current 
 # Option 2: Use whatever image has previously been set using feh
-exec --no-startup-id sh ~/.fehbg &
+exec_always --no-startup-id sh ~/.fehbg 
 
 # Option 3: Use random image from folder
 # exec feh --randomize --bg-fill ~/Dropbox/Wallpapers/Nature/*.jpg
 #********************************************************************************#
 # TOUCHPAD
 # Enable tap-to-click and natural scrolling
-exec --no-startup-id xinput set-prop 12 276 1; xinput set-prop 12 284 1
+exec --no-startup-id xinput set-prop 12 276 1
+exec --no-startup-id xinput set-prop 12 298 1
 
 # ENABLE COMPTON
 exec --no-startup-id compton -f
 
 # LOCK SCREEN
-bindsym $mod+Shift+x exec --no-startup-id i3lock
+bindsym $mod+Shift+x exec --no-startup-id blurlock
 # Lock screen timeout
 exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 
@@ -265,6 +294,7 @@ exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 gaps inner 10 
 gaps outer 5
 for_window [class="^.*"] border pixel 5
+smart_borders on
 
 # launch nm-applet
 # exec --no-startup-id nm-applet
