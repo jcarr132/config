@@ -17,6 +17,10 @@ set expandtab
 syntax on 
 set wrap
 set matchpairs+=<:>
+set foldmethod=indent
+set foldlevel=99
+
+nnoremap <C-o> za
 
 " AUTOCOMPLETION
 set wildmode=longest,list,full
@@ -63,6 +67,9 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'junegunn/goyo.vim'
-
+Plug 'kien/ctrlp.vim'
+Plug 'lilydjwg/colorizer'
+Plug 'RRethy/vim-illuminate'
+Plug 'simeji/winresizer'
 call plug#end()
 
