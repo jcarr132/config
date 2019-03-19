@@ -13,8 +13,9 @@ set cursorline
 set ruler
 set smartindent
 set tabstop=2
+set shiftwidth=2
 set expandtab
-syntax on 
+syntax on
 set wrap
 set matchpairs+=<:>
 set foldmethod=indent
@@ -40,14 +41,20 @@ let NERDTreeShowHidden=1
 
 
 " KEYMAP
-imap jk <Esc>
 
 inoremap {<cr> {<cr>}<c-o><s-o>
 inoremap [<cr> [<cr>]<c-o><s-o>
 inoremap (<cr> (<cr>)<c-o><s-o>
 
+" ALE
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+let g:ale_fix_on_save = 1
 
- call plug#begin('~/.vim/plugged')
+
+call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
@@ -71,5 +78,5 @@ Plug 'kien/ctrlp.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
 Plug 'simeji/winresizer'
+Plug 'lervag/vimtex'
 call plug#end()
-

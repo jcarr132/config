@@ -85,7 +85,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space exec --no-startup-id i3-msg "floating toggle move absolute position center"
+bindsym $mod+Shift+space exec --no-startup-id i3-msg "floating toggle move absolute position center border none"
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -162,6 +162,8 @@ exec --no-startup-id ~/caprine
 exec --no-startup-id spotify
 exec --no-startup-id minetime
 exec --no-startup-id todoist
+exec --no-startup-id start_conky_green
+exec --no-startup-id redshift-gtk
 
 # Manjaro default startup applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -266,8 +268,10 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # if this doesn't work, check xbacklight configuration and make sure it recognizes the monitor
 # bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 # increase screen brightness
 # bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 # decrease screen brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id sudo enlighten -10%
-bindsym XF86MonBrightnessDown exec --no-startup-id sudo enlighten +10%
+# bindsym XF86MonBrightnessUp exec --no-startup-id sudo enlighten -10%
+# bindsym XF86MonBrightnessDown exec --no-startup-id sudo enlighten +10%
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 #
 # ENABLE DUAL MONITORS
 # Expand monitors ([ META + m ]  after plugging in second monitor)
@@ -308,6 +312,8 @@ gaps inner 10
 gaps outer 5
 for_window [class="^.*"] border pixel 5
 smart_borders on
+hide_edge_borders         smart
+new_float none
 
 # launch nm-applet
 # exec --no-startup-id nm-applet
