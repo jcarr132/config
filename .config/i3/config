@@ -12,6 +12,11 @@
 set $mod Mod4
 focus_follows_mouse no
 
+# remap caps lock to escape
+exec --no-startup-id xmodmap -e "clear lock" #disable caps lock switch
+exec --no-startup-id xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+
+
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
 
@@ -42,7 +47,7 @@ bindsym $mod+d exec --no-startup-id dmenu_recency
 # bindsym $mod+d exec rofi -show run -theme input-emph-nobar
 
 # change focus
-# default jkl; remapped to vim bindings hjkl 
+# default jkl; remapped to vim bindings hjkl
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -287,9 +292,9 @@ bindsym $mod+Shift+m exec --no-startup-id .local/bin/i3collapsemonitors
 # SET DESKTOP WALLPAPER
 # Option 1: Hardcode path to wallpaper (uncomment line below)
 # exec python3 ~/.local/bin/i3setrandomwallpaper.py
-# exec --no-startup-id feh --bg-scale ~/Dropbox/Wallpapers/.current 
+# exec --no-startup-id feh --bg-scale ~/Dropbox/Wallpapers/.current
 # Option 2: Use whatever image has previously been set using feh
-exec_always --no-startup-id sh ~/.fehbg 
+exec_always --no-startup-id sh ~/.fehbg
 
 # Option 3: Use random image from folder
 # exec feh --randomize --bg-fill ~/Dropbox/Wallpapers/Nature/*.jpg
@@ -308,7 +313,7 @@ bindsym $mod+Shift+x exec --no-startup-id blurlock
 exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 
 # i3-gaps settings
-gaps inner 10 
+gaps inner 10
 gaps outer 5
 for_window [class="^.*"] border pixel 5
 smart_borders on
@@ -323,23 +328,23 @@ set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
- 
+
 mode "$mode_gaps" {
         bindsym o      mode "$mode_gaps_outer"
         bindsym i      mode "$mode_gaps_inner"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
- 
+
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
         bindsym 0     gaps inner current set 0
- 
+
         bindsym Shift+plus  gaps inner all plus 5
         bindsym Shift+minus gaps inner all minus 5
         bindsym Shift+0     gaps inner all set 0
- 
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -347,11 +352,11 @@ mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
         bindsym minus gaps outer current minus 5
         bindsym 0     gaps outer current set 0
- 
+
         bindsym Shift+plus  gaps outer all plus 5
         bindsym Shift+minus gaps outer all minus 5
         bindsym Shift+0     gaps outer all set 0
- 
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
