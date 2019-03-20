@@ -7,6 +7,7 @@ let g:lightline = {
       \ }
 
 " BASIC SETTINGS
+set nocompatible
 set laststatus=2
 set number relativenumber
 set cursorline
