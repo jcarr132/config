@@ -80,4 +80,5 @@ Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
 Plug 'simeji/winresizer'
 Plug 'lervag/vimtex'
+Plug 'pangloss/vim-javascript'
 call plug#end()
