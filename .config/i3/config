@@ -158,6 +158,7 @@ for_window [class="Todoist"] exec i3-msg "move right; resize shrink width 40px o
 
 
 #Startup applications
+exec --no-startup-id emacs --daemon # start the emacs daemon for faster loading
 exec --no-startup-id dropbox
 exec --no-startup-id urxvt -name mainTerminal
 # exec --no-startup-id firefox
@@ -231,15 +232,15 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # resize without using mode
-bindsym $mod+u                resize shrink width 20px or 20ppt
-bindsym $mod+i                resize grow height 20px or 20ppt
-bindsym $mod+o                resize shrink height 20px or 20ppt
-bindsym $mod+p                resize grow width 20px or 20ppt
+bindsym $mod+y                resize shrink width 20px or 20ppt
+bindsym $mod+u                resize grow height 20px or 20ppt
+bindsym $mod+i                resize shrink height 20px or 20ppt
+bindsym $mod+o                resize grow width 20px or 20ppt
 
-bindsym $mod+Shift+u                resize shrink width 10px or 10 ppt
-bindsym $mod+Shift+i                resize grow height 10px or 10 ppt
-bindsym $mod+Shift+o                resize shrink height 10px or 10 ppt
-bindsym $mod+Shift+p                resize grow width 10px or 10 ppt
+bindsym $mod+Shift+y                resize shrink width 10px or 10 ppt
+bindsym $mod+Shift+u                resize grow height 10px or 10 ppt
+bindsym $mod+Shift+i                resize shrink height 10px or 10 ppt
+bindsym $mod+Shift+o                resize grow width 10px or 10 ppt
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

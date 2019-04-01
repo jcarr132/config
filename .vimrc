@@ -25,7 +25,8 @@ set foldlevel=99
 nnoremap <C-o> za
 
 " AUTOCOMPLETION
-set wildmode=longest,list,full
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 
 " split bottom and right
 set splitbelow splitright
@@ -42,7 +43,6 @@ let NERDTreeShowHidden=1
 
 
 " KEYMAP
-
 inoremap {<cr> {<cr>}<c-o><s-o>
 inoremap [<cr> [<cr>]<c-o><s-o>
 inoremap (<cr> (<cr>)<c-o><s-o>
@@ -70,7 +70,6 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'Valloric/YouCompleteMe'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -79,6 +78,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'RRethy/vim-illuminate'
 Plug 'simeji/winresizer'
-Plug 'lervag/vimtex'
-Plug 'pangloss/vim-javascript'
+Plug 'stevearc/vim-arduino'
+
 call plug#end()
