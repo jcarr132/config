@@ -164,11 +164,10 @@ exec --no-startup-id urxvt -name mainTerminal
 # exec --no-startup-id firefox
 exec --no-startup-id qutebrowser
 exec --no-startup-id mailspring
-exec --no-startup-id ~/caprine
 exec --no-startup-id spotify
-exec --no-startup-id minetime
-exec --no-startup-id todoist
-exec --no-startup-id start_conky_green
+# exec --no-startup-id minetime
+# exec --no-startup-id todoist
+# exec --no-startup-id start_conky_green
 exec --no-startup-id redshift-gtk
 
 # Manjaro default startup applications
@@ -316,7 +315,7 @@ exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 # i3-gaps settings
 gaps inner 10
 gaps outer 5
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 1
 smart_borders on
 hide_edge_borders         smart
 new_float none

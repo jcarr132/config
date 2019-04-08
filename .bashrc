@@ -1,10 +1,13 @@
 alias i3conf="vim ~/.config/i3/config"
-alias onenote="/home/josh/opt/p3x-onenote-2019.2.17-17-x86_64.AppImage"
+alias config='/usr/bin/git --git-dir=/home/josh/.cfg/ --work-tree=/home/josh'
 alias light="sudo enlighten"
 alias untar="tar -xvzf"
 alias ex="chmod +x"
 alias wp="feh --randomize --bg-scale"
 alias cdcode="cd ~/Dropbox/Code"
+
+# enable vi editing mode for bash
+set -o vi
 
 #export WORKON_HOME=$HOME/.virtualenvs
 #source /usr/local/bin/virtualenvwrapper.sh
@@ -134,4 +137,3 @@ fi
 export PATH="$PATH:/home/josh/Muse"
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/josh/Muse"
-alias config='/usr/bin/git --git-dir=/home/josh/.cfg/ --work-tree=/home/josh'
