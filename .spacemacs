@@ -330,7 +330,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;;    t))
   
   (spacemacs/declare-prefix "ee" "eslint")
-  (spacemacs/set-leader-keys  "eef" 'eslint-fix-buffer)
+  ;; (spacemacs/set-leader-keys  "eef" 'eslint-fix-buffer)
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
