@@ -154,7 +154,7 @@ assign [class="tx"]                     $ws10
 
 
 #Startup applications
-exec --no-startup-id emacs --daemon # start the emacs daemon for faster loading
+# exec --no-startup-id emacs --daemon # start the emacs daemon for faster loading
 # exec --no-startup-id emacs
 exec --no-startup-id dropbox
 # exec --no-startup-id urxvt -name mainTerminal

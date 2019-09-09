@@ -5,6 +5,7 @@ alias untar="tar -xvzf"
 alias ex="chmod +x"
 alias wp="feh --randomize --bg-scale"
 alias cdcode="cd ~/Dropbox/Code"
+alias bats="BATS_RUN_SKIPPED=true bats"
 
 # enable vi editing mode for bash
 set -o vi
