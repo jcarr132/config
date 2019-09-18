@@ -5,6 +5,8 @@ alias untar="tar -xvzf"
 alias ex="chmod +x"
 alias wp="feh --randomize --bg-scale"
 alias cdcode="cd ~/Dropbox/Code"
+alias cdbr="cd ~/Dropbox/Code/BrainGridLock"
+alias r="R"
 alias bats="BATS_RUN_SKIPPED=true bats"
 
 # enable vi editing mode for bash
@@ -13,6 +15,10 @@ set -o vi
 #export WORKON_HOME=$HOME/.virtualenvs
 #source /usr/local/bin/virtualenvwrapper.sh
 
+# Import colorscheme from 'wal' asynchronously
+# &   # Run the process in the background.
+# ( ) # Hide shell job control messages.
+(cat ~/.cache/wal/sequences &)
 
 #source "/usr/bin/virtualenvwrapper.sh"
 #export WORKON_HOME="/opt/virtual_env/"
