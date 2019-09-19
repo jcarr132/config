@@ -168,8 +168,9 @@ for_window [class="calculator"] "floating enable, move absolute position center,
 
 
 #Startup applications
-exec termite --class dropdown
-exec termite --class calculator -e R # terminal running r
+exec --no-startup-id unclutter
+exec --no-startup-id termite --class dropdown
+exec --no-startup-id termite --class calculator -e R # terminal running r
 exec --no-startup-id emacs --daemon # start the emacs daemon for faster loading
 # exec --no-startup-id emacs
 exec --no-startup-id dropbox

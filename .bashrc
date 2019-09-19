@@ -12,20 +12,22 @@ alias bats="BATS_RUN_SKIPPED=true bats"
 # enable vi editing mode for bash
 set -o vi
 
-#export WORKON_HOME=$HOME/.virtualenvs
-#source /usr/local/bin/virtualenvwrapper.sh
+# configure powerline-shell
+function _update_ps1() {
+    PS1=$(powerline-shell $?)
+}
+
+if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
 (cat ~/.cache/wal/sequences &)
 
-#source "/usr/bin/virtualenvwrapper.sh"
-#export WORKON_HOME="/opt/virtual_env/"
-
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -140,7 +142,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-export PATH="$PATH:/home/josh/Muse"
-
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/josh/Muse"
