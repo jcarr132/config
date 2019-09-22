@@ -6,8 +6,13 @@ bold_is_bright = true
 #cell_width_scale = 1.0
 clickable_url = true
 dynamic_title = true
-#font = Monospace 9
-font = Hack Regular
+
+# FONT
+# font = Monospace 9
+# font = Source Code Pro
+# font = Hack Regular
+font = inconsolata
+
 #fullscreen = true
 #icon_name = terminal
 #mouse_autohide = false
@@ -15,16 +20,16 @@ font = Hack Regular
 #scroll_on_keystroke = true
 # Length of the scrollback buffer, 0 disabled the scrollback buffer
 # and setting it to a negative value means "infinite scrollback"
-scrollback_lines = 10000
+scrollback_lines = -99 # inf
 #search_wrap = true
 #urgent_on_bell = true
-#hyperlinks = false
+hyperlinks = false
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
 #browser = xdg-open
 
 # "system", "on" or "off"
-#cursor_blink = system
+cursor_blink = system
 
 # "block", "underline" or "ibeam"
 #cursor_shape = block
@@ -39,7 +44,7 @@ scrollback_lines = 10000
 #size_hints = false
 
 # "off", "left" or "right"
-#scrollbar = off
+#scrollbar = right
 
 [colors]
 # If both of these are unset, cursor falls back to the foreground color,
@@ -51,8 +56,8 @@ scrollback_lines = 10000
 #foreground_bold = #ffffff
 #background = #3f3f3f
 
-# 20% background transparency (requires a compositor)
-background = rgba(63, 63, 63, 0.8)
+# background, adjust alpha for opacity (requires compositor)
+background = rgba(63, 63, 63, 0.7)
 
 # If unset, will reverse foreground and background
 highlight = #2f2f2f

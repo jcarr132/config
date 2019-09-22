@@ -166,7 +166,9 @@
    dotspacemacs-mode-line-theme `vim-powerline
    ;; dotspacemacs-mode-line-theme `spacemacs
    ;; dotspacemacs-default-font '("Iosevka Medium"
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '(
+                               ;; "Source Code Pro"
+                               "inconsolata"
                                :size 13
                                :weight normal
                                :width normal

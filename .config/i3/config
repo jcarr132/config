@@ -22,8 +22,8 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec --no-startup-id urxvt
-# bindsym $mod+Return exec --no-startup-id termite
-bindsym $mod+Return exec --no-startup-id st
+bindsym $mod+Return exec --no-startup-id termite
+# bindsym $mod+Return exec --no-startup-id st
 
 
 # open enpass
@@ -205,8 +205,9 @@ bar {
         position top
         separator_symbol ":|:"
         workspace_buttons yes
-        binding_mode_indicator no
-        font pango: System San Francisco Display, FontAwesome 10
+        # binding_mode_indicator no
+        # font pango: System San Francisco Display, FontAwesome 10
+        font pango: inconsolata
 }
 
 #********************************************************************************#
