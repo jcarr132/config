@@ -366,8 +366,8 @@ you should place your code here."
       (spacemacs/toggle-smartparens-globally-on)
       (spacemacs/toggle-version-control-margin-globally-on)
       (spacemacs/enable-transparency)
-      (load-theme 'ewal-spacemacs-modern)
       (enable-theme 'ewal-spacemacs-modern)
+      (load-theme 'ewal-spacemacs-modern)
       ;; dotspacemacs-mode-line-theme `vim-powerline
       )
     )
@@ -384,7 +384,7 @@ you should place your code here."
     :ensure t
     :config
     (dashboard-setup-startup-hook))
-  )
+ 
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 
@@ -419,6 +419,23 @@ you should place your code here."
            (add-hook 'org-mode-hook 'org-mode-reftex-setup)
            )))
 
+
+  ;; setup indent-width for JS and related filetypes
+  (defun my-setup-indent (n)
+    ;; java/c/c++
+    (setq c-basic-offset n)
+    ;; web development
+    (setq javascript-indent-level n) ; javascript-mode
+    (setq js-indent-level n) ; js-mode
+    (setq js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+    (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+    (setq web-mode-css-indent-offset n) ; web-mode, css in html file
+    (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
+    (setq css-indent-offset n) ; css-mode
+    )
+  (my-setup-indent 2) ;
+) ;; end of user-config
+;;*********************
 
 
 ;; Do not write anything past this comment. This is where Emacs will
