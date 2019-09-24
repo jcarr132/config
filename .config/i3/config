@@ -13,6 +13,7 @@ exec --no-startup-id xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as es
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:System San Francisco Display 12
+font pango: inconsolata
 
 
 
@@ -30,7 +31,7 @@ bindsym $mod+Return exec --no-startup-id termite
 bindsym $mod+bar exec --no-startup-id /opt/enpass/Enpass showassistant
 
 # open (spac)emacs
-bindsym $mod+Shift+Return exec --no-startup-id emacsclient -c
+bindsym $mod+Shift+Return exec --no-startup-id emacsclient -c -a ""
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -143,15 +144,17 @@ bindsym $mod+p move workspace to output right
 
 for_window [class="dropdown"] "floating enable, move absolute position center, move right 500px move up 250px move scratchpad"
 for_window [class="calculator"] "floating enable, move absolute position center, move right 500px, move down 250px, move scratchpad"
+for_window [title="XAVA"] "floating enable, move absolute position center, move down 501px, resize set height 80px, sticky enable"
 
 
 #Startup applications
 exec --no-startup-id unclutter
 exec --no-startup-id termite --class dropdown
 exec --no-startup-id termite --class calculator -e R # terminal running r
-exec --no-startup-id emacs --daemon # start the emacs daemon for faster loading
+# exec --no-startup-id emacs --daemon # start the emacs daemon for faster loading
 exec --no-startup-id dropbox
 exec --no-startup-id redshift-gtk
+exec --no-startup-id xava
 
 # Manjaro default startup applications
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

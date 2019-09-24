@@ -82,8 +82,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source ~/.oh-my-zsh/plugins/last-working-dir/
 
+# z extension
+source $HOME/z.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
