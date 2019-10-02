@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+
+wal -i $@
+cp $1 ~/.wallpaper
+cp $1 /usr/share/backgrounds/desktop.jpg
+exit 0
