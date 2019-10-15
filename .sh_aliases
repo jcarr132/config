@@ -10,3 +10,5 @@ alias rm='safe-rm'
 alias srcz='source ~/.zshrc'
 alias nwp='new_wallpaper'
 alias cddb='cd ~/Dropbox/'
+alias rgr=ranger
+alias rgrwp='ranger ~/Dropbox/wallpapers'

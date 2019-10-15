@@ -8,6 +8,7 @@ focus_follows_mouse no
 # remap caps lock to escape
 exec_always --no-startup-id xmodmap -e "clear lock" #disable caps lock switch
 exec_always --no-startup-id xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+exec_always --no-startup-id xmodmap -e "keycode 105 = Super_L" && xset -r 105 
 
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -216,7 +217,7 @@ bindsym $mod+Shift+o                resize grow width 10px or 10 ppt
 # }
 
 # polybar
-exec-always --no-startup-id $HOME/.config/polybar/launch.sh
+exec-always --no-startup-id polybarstart
 
 
 
@@ -248,9 +249,12 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 # decrease screen brightness
 # bindsym XF86MonBrightnessUp exec --no-startup-id sudo enlighten -10%
 # bindsym XF86MonBrightnessDown exec --no-startup-id sudo enlighten +10%
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
+# use package 'light' instead (light-git on aur)
+bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 
 #********************************************************************************#
 # SET DESKTOP WALLPAPER
@@ -273,7 +277,7 @@ bindsym $mod+Shift+x exec --no-startup-id blurlock
 exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 
 # i3-gaps settings
-gaps inner 70
+gaps inner 20
 gaps outer 0
 for_window [class="^.*"] border pixel 0
 smart_borders on
