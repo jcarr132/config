@@ -18,7 +18,7 @@ mapkey('<Ctrl-E>', '#4Edit current URL with vim editor, and reload', function() 
     }, 'url');
 });
 
-mapkey('f', '#1Open multiple links in a new tab', function() {
+mapkey(';b', '#1Open multiple links in a new tab', function() {
     Hints.create("", Hints.dispatchMouseClick, {multipleHits: true});
 });
 
