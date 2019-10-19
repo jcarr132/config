@@ -94,7 +94,7 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space exec --no-startup-id i3-msg "floating toggle move absolute position center border none"
+bindsym $mod+Shift+space exec --no-startup-id i3-msg "floating toggle move absolute position center"
 bindsym $mod+Ctrl+Shift+space exec --no-startup-id \
         "i3-msg floating toggle, resize set 700px 900px, move absolute position center, move left 550, move down 15px, border none"
 
@@ -277,9 +277,9 @@ bindsym $mod+Shift+x exec --no-startup-id blurlock
 exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 
 # i3-gaps settings
-gaps inner 20
+gaps inner 10
 gaps outer 0
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 3
 smart_borders on
 hide_edge_borders         both
 # new_float normal 0
@@ -333,13 +333,13 @@ mode "$mode_gaps_outer" {
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color7 #f0f0f0
-set_from_resource $bg i3wm.color2 #f0f0f0
+set_from_resource $fg i3wm.color6
+set_from_resource $bg i3wm.color1 #f0f0f0
 
 # class                 border  backgr. text indicator child_border
-client.focused          $bg     $bg     $fg  $bg       $bg
-client.focused_inactive #$bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.focused          $fg     $fg     $fg  $fg       $fg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $bg  $bg       $bg
 client.urgent           $bg     $bg     $fg  $bg       $bg
 client.placeholder      $bg     $bg     $fg  $bg       $bg
 
