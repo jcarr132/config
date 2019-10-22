@@ -1,10 +1,13 @@
 // an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
-map('J', 'E') // move one tab left
-map('K', 'R') // move one tab right
-map('H', 'S') // go back in history
-map('L', 'D') // go forward in history
+map('J', 'E'); // move one tab left
+map('K', 'R'); // move one tab right
+map('H', 'S'); // go back in history
+map('L', 'D'); // go forward in history
 
-map('u', 'X') // restore most recently closed tab
+map('u', 'X'); // restore most recently closed tab
+
+// make hints visible on dark background
+Hints.style('border: solid 3px #552a48; color:#efe1eb; background: initial; background-color: #552a48;');
 
 mapkey('<Ctrl-e>', '#4Edit current URL with vim editor, and open in new tab', function() {
     Front.showEditor(window.location.href, function(data) {
@@ -19,15 +22,15 @@ mapkey('<Ctrl-E>', '#4Edit current URL with vim editor, and reload', function() 
 });
 
 mapkey(';b', '#1Open multiple links in a new tab', function() {
-    Hints.create("", Hints.dispatchMouseClick, {multipleHits: true});
+    Hints.create('', Hints.dispatchMouseClick, {multipleHits: true});
 });
 
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
 
 // CUSTOM MAPPINGS
-map(';b', 'cf') // open multiple links in background
-map('o', 'go') // go to url in current tab 
+map(';b', 'cf'); // open multiple links in background
+map('o', 'go'); // go to url in current tab 
 
 // set theme
 settings.theme = `

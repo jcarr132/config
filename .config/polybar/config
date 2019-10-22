@@ -31,7 +31,7 @@ wm-restack = i3
 ; monitor = eDP1
 monitor = ${env:MONITOR:}
 
-fixed-center = false
+fixed-center = true
 
 border-size = 0
 #border-color = #00aaaaaa
@@ -44,18 +44,18 @@ radius = 0
 
 enable-ipc = true
 
-padding-left = 2
-padding-right = 2
+padding-left = 0
+padding-right = 0
 
-module-margin-right = 0
-module-margin-left = 0
+module-margin-right = 1
+module-margin-left = 1
 
 
-modules-right = alsa backlight filesystem cpu memory updates battery
+modules-left = i3 xwindow 
 modules-center = date
-modules-left = i3 xwindow
+modules-right = wlan volume backlight filesystem battery
 
-separator = " | "
+separator = "|"
 tray-position = right
 
 #background = ${colors.bg}
@@ -64,11 +64,14 @@ background-alt = #aa090909
 pseudo-transparency = true
 foreground = ${colors.modfg}
 
-font-0 = inconsolata:weight=regular:size=12;3
-font-1 = FontAwesome:size=10;3
-font-2 = IPAPgothic:weight=regular:size=10;3
-font-3 = FontAwesome 5 Free:size=10:style=Solid;3
-font-4 = unifont:size=10;3
+font-0 = inconsolata:weight=bold:size=14;3
+font-1 = FontAwesome:size=14;3
+font-2 = FontAwesome 5 Free:size=12:style=Solid;3
+font-3 = Monospace:size=16;3
+; font-3 = FontAwesome 5 Free Solid:size=14:style=Solid;3
+; font-4 = FontAwesome 5 Free Brands:size=14:style=Solid;3
+; font-5 = IPAPgothic:weight=regular:size=10;3
+; font-6 = unifont:size=10;3
 
 [module/xwindow]
 type = internal/xwindow
@@ -85,13 +88,8 @@ spacing = 0
 mount-0 = /
 mount-1 = /home/josh/hdd
 
-label-mounted =  %mountpoint% %free%
-; label-mounted-underline = ${colors.modfg}
+label-mounted =  %free%
 label-mounted-padding = 1
-;label-mounted-background = ${colors.bg}
-
-label-unmounted =
-;label-unmounted-foreground = ${colors.bg}
 
 
 [module/i3]
@@ -100,7 +98,7 @@ format = <label-mode> <label-state>
 index-sort = true
 
 label-focused = %name%
-label-focused-padding = 1
+label-focused-padding = 2
 label-focused-foreground = ${colors.bg}
 label-focused-background = ${colors.modfg}
 
@@ -114,6 +112,10 @@ label-urgent-padding = 1
 
 label-visible = %name%
 label-visible-padding = 1
+
+label-separator = |
+
+pin-workspaces = true
 
 
 
@@ -197,11 +199,11 @@ label = " %percentage_used%%"
 
 [module/wlan]
 type = internal/network
-interface = enp2s0
+interface = wlp2s0
 interval = 3.0
 
-format-connected-padding = 1
-format-disconnected-padding = 1
+format-connected-padding = 0
+format-disconnected-padding = 0
 
 format-connected = <label-connected>
 format-connected-underline = ${colors.white}
@@ -231,7 +233,7 @@ label-disconnected-foreground = ${colors.gray}
 [module/date]
 type = internal/date
 date-alt = %A   %H:%M
-date = %d/%m/%Y   %H:%M
+date = %d/%m/%Y | %H:%M
 interval = 5
 
 ;format-underline = ${colors.modfg}
@@ -240,13 +242,13 @@ interval = 5
 ;format-padding = 2
 
 
-[module/alsa]
-type = internal/alsa
+[module/volume]
+type = internal/pulseaudio
 
 label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted =  sound muted
+label-muted =  mute
 label-muted-foreground = ${colors.gray}
 ; Soundcard to be used
 ; Usually in the format hw:# where # is the card number
@@ -416,3 +418,11 @@ enable-click = false
 ; Default: true
 enable-scroll = false
 ; vim:ft=dosini
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+exec = python ~/.config/polybar/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954

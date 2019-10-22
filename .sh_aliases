@@ -12,3 +12,5 @@ alias nwp='new_wallpaper'
 alias cddb='cd ~/Dropbox/'
 alias rgr=ranger
 alias rgrwp='ranger ~/Dropbox/wallpapers'
+alias termite='termite --class termite'
+alias vol='~/bin/setvolume'
