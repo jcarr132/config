@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+function up() {
+    times=$1
+    while [ "$times" -gt "0" ]; do
+        echo $times
+        cd ..
+        times=$(($times - 1))
+    done
+}
