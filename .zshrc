@@ -1,13 +1,19 @@
-# if you come from bash you might have to change your $PATH.
+# set PATH
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export PATH=~/bin:$PATH
-# path+=/home/josh/bin/
+
+## Setup proper term information for emacs ansi-term mode
+[[ $TERM == eterm-color ]] && export TERM=xterm
+if [[ $TERM = dumb ]]; then
+    unset zle_bracketed_paste
+fi
+export EMACS="*term*"
+export PROMPT_COMMAND=""
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/josh/.oh-my-zsh"
 
 # export profile vars
-export EDITOR=/usr/bin/vim
+export EDITOR="vim"
 
 # import shared aliases
 source ~/.sh_aliases
@@ -16,10 +22,10 @@ source ~/.sh_aliases
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="bira"
 # ZSH_THEME="aussiegeek"
-ZSH_THEME="bureau"
+# ZSH_THEME="bureau"
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
@@ -67,10 +73,6 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
-
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
@@ -114,4 +116,3 @@ bindkey -s '^o' 'lfcd\n'
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
-

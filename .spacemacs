@@ -27,11 +27,11 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     rust
      ;; LAYERS
      ;;languages
 
@@ -42,40 +42,47 @@ values."
      python
      latex
      bibtex
-     ess
+     ess ;; R
      markdown
+     rust
 
      ;; utilities
-     pdf-tools
+     ;; pdf-tools
+     epub
+     pdf
      themes-megapack
      helm
+     ;; ivy
      auto-completion
      better-defaults
      git
      org
      (shell :variables
+            shell-default-shell 'ansi-term
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
      version-control
+     ;; vim-powerline
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      ewal
-                                      ewal-spacemacs-themes
-                                      ewal-spacemacs-theme
-                                      ewal-evil-cursors
-                                      dashboard
                                       nov
+                                      ;; ewal
+                                      ;; ewal-spacemacs-themes
+                                      ;; ewal-spacemacs-theme
+                                      ;; ewal-evil-cursors
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    vi-tilde-fringe
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -144,8 +151,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         ;; 'ewal-spacemacs-modern
-                         solarized-dark
+                         zenburn
+                         ;; ewal-spacemacs
+                         ;; solarized-dark
                          ;; spacemacs-dark
                          ;; spacemacs-light
                          )
@@ -153,25 +161,25 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-mode-line-theme `vim-powerline
+   dotspacemacs-mode-line-theme 'vim-powerline
    ;; dotspacemacs-default-font '(
-                               ;; "Inconsolata Regular"
-                               ;; "Fira Code"
-                               ;; "Hasklig"
-                               ;; :family "Hasklig"
-                               ;; :size 13
-                               ;; :weight normal
-                               ;; :width normal
-   dotspacemacs-default-font '(("FuraCode Nerd Font Mono"
-                                :size 13
-                                :weight medium
-                                :width normal
-                                :powerline-scale 1.1)
-                               ("Fira Code Symbol"
-                                :size 13
-                                :weight normal
-                                :width normal
-                                :powerline-scale 1.1));; :powerline-scale 1.1)
+   ;;                             "Inconsolata Regular"
+   ;;                             "Fira Code"
+   ;;                             "Hasklig"
+   ;;                             :family "Hasklig"
+   ;;                             :size 13
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;; dotspacemacs-default-font '(("FuraCode Nerd Font Mono"
+                               ;;                              :size 13
+   ;;                              :weight medium
+   ;;                              :width normal
+   ;;                              :powerline-scale 1.1)
+   ;;                             ("Fira Code Symbol"
+   ;;                              :size 13
+   ;;                              :weight normal
+   ;;                              :width normal
+   ;;                              :powerline-scale 1.1));; :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -294,11 +302,10 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative t
+   dotspacemacs-line-numbers '(:visual t
                                          :disabled-for-modes dired-mode
                                          doc-view-mode
                                          markdown-mode
-                                         org-mode
                                          pdf-view-mode
                                          text-mode
                                          )
@@ -311,7 +318,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -332,7 +339,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -342,8 +349,43 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; (global-vi-tilde-fringe-mode -1)
-  ;; (smartparens-global-mode)
+
+    ;; line numbering
+  (defun my-prog-config ()
+    (spacemacs/toggle-visual-line-numbers-on)
+    )
+    (add-hook 'prog-mode-hook 'my-prog-config)
+
+    ;; read epubs with nov.el
+    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+    (setq nov-text-width 80)
+
+
+    ;; org-mode configuration
+    (defun my-org-config ()
+      (spacemacs/toggle-visual-line-numbers-on)
+      )
+    (add-hook 'org-mode-hook 'my-org-config)
+
+
+    ;; config for new frames created from daemon
+    (defun my-frame-config (&optional frame)
+      (with-selected-frame (or frame (selected-frame))
+        ;; do things to FRAME
+        (spacemacs/toggle-indent-guide-globally-on)
+        (spacemacs/toggle-camel-case-motion-globally-on)
+        (spacemacs/toggle-smartparens-globally-on)
+        (spacemacs/toggle-version-control-margin-globally-on)
+        (spacemacs/enable-transparency)
+        (find-file "~/Dropbox/org/brain.org")
+        )
+      )
+
+
+    ;; apply settings to new/initial frames
+    (add-hook 'after-init-hook 'my-frame-config)
+    (add-hook 'after-make-frame-functions 'my-frame-config)
+    (my-frame-config)
   )
 
 (defun dotspacemacs/user-config ()
@@ -353,64 +395,75 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-  ;; configure ewal (pywal colours in emacs)
-  (use-package ewal
-    :init (setq ewal-use-built-in-always-p nil
-                ewal-use-built-in-on-failure-p t
-                ewal-built-in-palette "sexy-material"))
-  (use-package ewal-spacemacs-themes
-    :init (progn
-              (show-paren-mode +1)
-              (global-hl-line-mode))
-    :config (progn
-              (load-theme 'ewal-spacemacs-modern)
-              (enable-theme 'ewal-spacemacs-modern)))
-  (use-package ewal-evil-cursors
-    :after (ewal-spacemacs-themes)
-    :config (ewal-evil-cursors-get-colors
-             :apply t))
+  ;; ORG-MODE
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:background ""))
+          ("DONE" . (:background ""))
+          ("DOING" . (:background ""))
+          ("WAITING" . (:background ""))
+          ("SCHEDULED" . (:background ""))
+          ("TEST" . (:background ""))
+          ("CANCELLED" . (:background ""))
+          ("UNREAD" . (:background ""))
+          ("READING" . (:background ""))
+          ("NEXT" . (:background ""))
+          ("IN-PROGRESS" . (:background ""))
+          ("SOON" . (:background ""))
+          ("SOMEDAY" . (:background ""))
+          ))
+
+  ;; org mode
+  ;; Hide leading stars
+  (setq org-startup-indented t
+        org-hide-leading-stars t)
+
+  ;; ;; configure ewal (pywal colours in emacs)
+  ;; (use-package ewal
+  ;;   :init (setq ewal-use-built-in-always-p nil
+  ;;               ewal-use-built-in-on-failure-p t
+  ;;               ewal-built-in-palette "sexy-material"))
+  ;; (use-package ewal-spacemacs-themes
+  ;;   :init (progn
+  ;;             (show-paren-mode +1)
+  ;;             (global-hl-line-mode))
+  ;;   :config (progn
+  ;;             (load-theme 'ewal-spacemacs-modern)
+  ;;             (enable-theme 'ewal-spacemacs-modern)))
+  ;; (use-package ewal-evil-cursors
+  ;;   :after (ewal-spacemacs-themes)
+  ;;   :config (ewal-evil-cursors-get-colors
+  ;;            :apply t))
 
 
-  ;; config for new frames created from daemon
-  (defun my-frame-config (&optional frame)
-    (with-selected-frame (or frame (selected-frame))
-      ;; do things to FRAME
-      (spacemacs/toggle-indent-guide-globally-on)
-      (spacemacs/toggle-camel-case-motion-globally-on)
-      (spacemacs/toggle-smartparens-globally-on)
-      (spacemacs/toggle-version-control-margin-globally-on)
-      (spacemacs/enable-transparency)
-      (enable-theme 'ewal-spacemacs-modern)
-      (load-theme 'ewal-spacemacs-modern)
-      ;; dotspacemacs-mode-line-theme `vim-powerline
-      )
+  ;; ;; config for new frames created from daemon
+  ;; (defun my-frame-config (&optional frame)
+  ;;   (with-selected-frame (or frame (selected-frame))
+  ;;     ;; do things to FRAME
+  ;;     (spacemacs/toggle-indent-guide-globally-on)
+  ;;     (spacemacs/toggle-camel-case-motion-globally-on)
+  ;;     (spacemacs/toggle-smartparens-globally-on)
+  ;;     (spacemacs/toggle-version-control-margin-globally-on)
+  ;;     (spacemacs/enable-transparency)
+  ;;     (find-file "~/Dropbox/org/brain.org")
+  ;;     )
+  ;;   )
+
+
+  ;; ;; apply settings to new/initial frames
+  ;; (add-hook 'after-init-hook 'my-frame-config)
+  ;; (add-hook 'after-make-frame-functions 'my-frame-config)
+  ;; (my-frame-config)
+
+
+
+  (defun my-org-config ()
+    (spacemacs/toggle-visual-line-numbers-on)
     )
+  (add-hook 'org-mode-hook 'my-org-config)
 
-
-  ;; apply settings to new/initial frames
-  (add-hook 'after-init-hook 'my-frame-config)
-  (add-hook 'after-make-frame-functions 'my-frame-config)
-  (my-frame-config)
-
-
-  ;; configure dashboard
-  (use-package dashboard
-    :ensure t
-    :config
-    (dashboard-setup-startup-hook))
-
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-
-
-  ;; line numbering
-  ;; (add-hook 'prog-mode-hook 'linum-relative-mode)
-  ;; (add-hook 'org-mode-hook
-  ;;           'spacemacs/toggle-truncate-lines-on
-  ;;           ;; 'linum-relative-mode
-  ;;           ;; 'linum-relative-on
-  ;;           'linum-mode-set-explicitly relative
-  ;;           )
   (add-hook 'pdf-view-mode-hook 'linum-mode-set-explicitly nil)
 
 
@@ -457,56 +510,43 @@ you should place your code here."
   (my-setup-indent 2) ;
 
 
-  ;; nov.el setup (reading ebook formats in emacs)
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  ;; ;; Font Ligatures
+  ;; (defun my-correct-symbol-bounds (pretty-alist)
+  ;;     "Prepend a TAB character to each symbol in this alist,
+  ;; this way compose-region called by prettify-symbols-mode
+  ;; will use the correct width of the symbols
+  ;; instead of the width measured by char-width."
+  ;;     (mapcar (lambda (el)
+  ;;               (setcdr el (string ?\t (cdr el)))
+  ;;               el)
+  ;;             pretty-alist))
+  ;; (defun my-ligature-list (ligatures codepoint-start)
+  ;;     "Create an alist of strings to replace with
+  ;; codepoints starting from codepoint-start."
+  ;;     (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
+  ;;       (-zip-pair ligatures codepoints)))
+  ;; (setq my-fira-code-ligatures
+  ;;     (let* ((ligs '("www" "**/" "*>" "*/" "\\\\" "\\\\\\"
+  ;;                   "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+  ;;                   "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+  ;;                   "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+  ;;                   ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+  ;;                   "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+  ;;                   "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+  ;;                   "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+  ;;                   ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+  ;;                   "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+  ;;                   "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+  ;;                   "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
+  ;;                   )))
+  ;;       (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
+  ;; (defun my-set-fira-code-ligatures ()
+  ;;     "Add fira code ligatures for use with prettify-symbols-mode."
+  ;;     (setq prettify-symbols-alist
+  ;;           (append my-fira-code-ligatures prettify-symbols-alist))
+  ;;     (prettify-symbols-mode))
+  ;; (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
 
-
-  ;; disable text face backgrounds in org-mode
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (font-lock-add-keywords
-               'org-mode
-               '(
-                 ("*" 0 '(:background "#000000") t)
-                 ))))
-
-
-  ;; Font Ligatures
-  (defun my-correct-symbol-bounds (pretty-alist)
-      "Prepend a TAB character to each symbol in this alist,
-  this way compose-region called by prettify-symbols-mode
-  will use the correct width of the symbols
-  instead of the width measured by char-width."
-      (mapcar (lambda (el)
-                (setcdr el (string ?\t (cdr el)))
-                el)
-              pretty-alist))
-  (defun my-ligature-list (ligatures codepoint-start)
-      "Create an alist of strings to replace with
-  codepoints starting from codepoint-start."
-      (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
-        (-zip-pair ligatures codepoints)))
-  (setq my-fira-code-ligatures
-      (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-                    "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-                    "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-                    "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-                    ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-                    "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-                    "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-                    "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-                    ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-                    "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-                    "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-                    "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-                    )))
-        (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
-  (defun my-set-fira-code-ligatures ()
-      "Add fira code ligatures for use with prettify-symbols-mode."
-      (setq prettify-symbols-alist
-            (append my-fira-code-ligatures prettify-symbols-alist))
-      (prettify-symbols-mode))
-  (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures))
 
 ;;; runs eslint --fix on the current file after save
 ;;; alpha quality -- use at your own risk
@@ -520,11 +560,9 @@ you should place your code here."
   (eslint-fix-file)
   (revert-buffer t t))
 
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
 ;; end of user-config
 
+)
 ;;*********************
 
 
@@ -537,12 +575,12 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "ba72dfc6bb260a9d8609136b9166e04ad0292b9760a3e2431cf0cd0679f83c3a" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
+    ("cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
  '(evil-want-Y-yank-to-eol nil)
- '(global-prettify-symbols-mode t)
+ '(org-agenda-files (quote ("~/Dropbox/org/brain.org")))
  '(package-selected-packages
    (quote
-    (eslint-fix hasklig-mode powerline spinner hydra lv parent-mode projectile pkg-info epl flx highlight smartparens iedit anzu evil goto-chg undo-tree bind-map bind-key packed nov esxml toml-mode racer flycheck-rust cargo rust-mode dashboard page-break-lines ewal-force-tty-colors-in-daemon-p-theme \(quote\ ewal-spacemacs-modern\)-theme ewal-spacemacs-theme ewal-spacemacs-modern-theme zenburn-theme zen-and-art-theme yapfify xterm-color white-sand-theme web-mode web-beautify unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme rebecca-theme railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme orgit organic-green-theme org-ref pdf-tools key-chord ivy tablist org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mwim mustang-theme multi-term monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-popup madhat2r-theme lush-theme livid-mode skewer-mode simple-httpd live-py-mode light-soap-theme json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme hy-mode htmlize heroku-theme hemisu-theme helm-pydoc helm-gitignore helm-css-scss helm-company helm-c-yasnippet helm-bibtex parsebib hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck flatui-theme flatland-theme fish-mode farmhouse-theme exotica-theme ewal-spacemacs-themes spacemacs-theme ewal-evil-cursors ewal evil-magit magit transient git-commit with-editor ess-smart-equals ess-R-data-view ctable ess julia-mode espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode dracula-theme django-theme diff-hl darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-auctex company-anaconda company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme biblio biblio-core badwolf-theme auto-yasnippet yasnippet auto-dictionary auctex-latexmk auctex apropospriate-theme anti-zenburn-theme anaconda-mode pythonic ample-zen-theme ample-theme alect-themes afternoon-theme ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (nov esxml xresources-theme zenburn-theme zen-and-art-theme yapfify xterm-color ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toml-mode toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme racer pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-rust flycheck-pos-tip flx-ido flatui-theme flatland-theme fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell ewal-evil-cursors evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-data-view espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-web company-tern company-statistics company-shell company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme cargo busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

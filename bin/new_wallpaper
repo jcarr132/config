@@ -2,6 +2,6 @@
 
 
 wal -i $@
-cp $1 ~/.wallpaper
-cp $1 /usr/share/backgrounds/desktop.jpg
+cp "$1" ~/.wallpaper
+cp "$1" /usr/share/backgrounds/desktop.jpg
 exit 0
