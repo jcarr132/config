@@ -464,7 +464,7 @@ you should place your code here."
     )
   (add-hook 'org-mode-hook 'my-org-config)
 
-  (add-hook 'pdf-view-mode-hook 'linum-mode-set-explicitly nil)
+  (add-hook 'pdf-view-mode-hook 'linum-mode nil)
 
 
   ;; LaTeX/bibtex/reftex
