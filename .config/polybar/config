@@ -96,9 +96,9 @@ module-margin-right = 1
 module-margin-left = 1
 
 
-modules-left = xwindow
+modules-left = xwindow 
 modules-center = spotify mpd
-modules-right = updates menu0
+modules-right = pomo updates menu0
 
 separator = "|"
 tray-position = right
@@ -466,3 +466,16 @@ format-prefix = " "
 format = <label>
 exec = python ~/.config/polybar/spotify_status.py -f '{artist}: {song}'
 format-underline = #1db95
+
+[module/pomobar]
+type=custom/ipc
+hook-0 = cat ~/.pomobaroutput
+initial=1
+click-left =  ~/bin/pomobar.py --action=new &
+click-middle= ~/bin/pomobar.py --action=kill &
+click-right = ~/bin/pomobar.py --action=break &
+
+[module/pomo]
+type = custom/script
+interval = 1
+exec = pomo status

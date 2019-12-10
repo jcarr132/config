@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+# launch TUIR (Terminal UI for Reddit)
+termite -e tuir --class reddit

@@ -1,19 +1,20 @@
 # set PATH
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 ## Setup proper term information for emacs ansi-term mode
 [[ $TERM == eterm-color ]] && export TERM=xterm
-if [[ $TERM = dumb ]]; then
+if [[ $TERM = "dumb" ]]; then
     unset zle_bracketed_paste
 fi
-export EMACS="*term*"
-export PROMPT_COMMAND=""
+
+# export EMACS="*term*"
+# export PROMPT_COMMAND=""
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/josh/.oh-my-zsh"
+# export ZSH="/home/josh/.oh-my-zsh"
 
 # export profile vars
-export EDITOR="vim"
+# export EDITOR="emacsclient -c"
 
 # import shared aliases
 source ~/.sh_aliases
@@ -98,8 +99,8 @@ zle-line-init() {
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+# echo -ne '\e[5 q' # Use beam shape cursor on startup.
+# preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # # Use lf to switch directories and bind it to ctrl-o
 # lfcd () {
@@ -111,7 +112,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 #         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
 #     fi
 # }
-bindkey -s '^o' 'lfcd\n'
+# bindkey -s '^o' 'lfcd\n'
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line

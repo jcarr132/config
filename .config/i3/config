@@ -32,7 +32,7 @@ bindsym $mod+Return exec --no-startup-id termite
 bindsym $mod+bar exec --no-startup-id /opt/enpass/Enpass showassistant
 
 # open (spac)emacs
-bindsym $mod+Shift+Return exec --no-startup-id emacsclient -c -a ""
+bindsym $mod+Shift+Return exec --no-startup-id ec
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -217,7 +217,7 @@ bindsym $mod+Shift+o                resize grow width 10px or 10 ppt
 # }
 
 # polybar
-exec-always --no-startup-id ~/bin/polybarstart
+exec-always --no-startup-id zsh ~/bin/polybarstart
 
 # i3-rename-workspaces.pl -- perl script to automatically update workspace names based on running applications
 exec_always --no-startup-id ~/bin/i3-renameworkspaces.pl
