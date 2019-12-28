@@ -217,7 +217,8 @@ bindsym $mod+Shift+o                resize grow width 10px or 10 ppt
 # }
 
 # polybar
-exec-always --no-startup-id zsh ~/bin/polybarstart
+# exec-always --no-startup-id ~/bin/polybarstart
+exec polybarstart
 
 # i3-rename-workspaces.pl -- perl script to automatically update workspace names based on running applications
 exec_always --no-startup-id ~/bin/i3-renameworkspaces.pl

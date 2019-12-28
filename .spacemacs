@@ -379,7 +379,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (defun my-frame-config (&optional frame)
       (with-selected-frame (or frame (selected-frame))
         ;; do things to FRAME
-        (spacemacs/toggle-indent-guide-globally-on)
+        (setq spacemacs/toggle-indent-guide-globally-on)
         (spacemacs/toggle-camel-case-motion-globally-on)
         (spacemacs/toggle-smartparens-globally-on)
         (spacemacs/toggle-version-control-margin-globally-on)
@@ -393,7 +393,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (add-hook 'after-init-hook 'my-frame-config)
     (add-hook 'after-make-frame-functions 'my-frame-config)
     (my-frame-config)
-    ;; (find-file "~/Dropbox/org/brain.org")
+    (find-file "~/Dropbox/org/brain.org")
   )
 
 (defun dotspacemacs/user-config ()
@@ -407,21 +407,21 @@ you should place your code here."
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
   ;; ORG-MODE
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:background ""))
-          ("DONE" . (:background ""))
-          ("DOING" . (:background ""))
-          ("WAITING" . (:background ""))
-          ("SCHEDULED" . (:background ""))
-          ("TEST" . (:background ""))
-          ("CANCELLED" . (:background ""))
-          ("UNREAD" . (:background ""))
-          ("READING" . (:background ""))
-          ("NEXT" . (:background ""))
-          ("IN-PROGRESS" . (:background ""))
-          ("SOON" . (:background ""))
-          ("SOMEDAY" . (:background ""))
-          ))
+  ;; (setq org-todo-keyword-faces
+  ;;       '(("TODO" . (:background ""))
+  ;;         ("DONE" . (:background ""))
+  ;;         ("DOING" . (:background ""))
+  ;;         ("WAITING" . (:background ""))
+  ;;         ("SCHEDULED" . (:background ""))
+  ;;         ("TEST" . (:background ""))
+  ;;         ("CANCELLED" . (:background ""))
+  ;;         ("UNREAD" . (:background ""))
+  ;;         ("READING" . (:background ""))
+  ;;         ("NEXT" . (:background ""))
+  ;;         ("IN-PROGRESS" . (:background ""))
+  ;;         ("SOON" . (:background ""))
+  ;;         ("SOMEDAY" . (:background ""))
+  ;;         ))
 
   ;; org mode
   ;; Hide leading stars
@@ -446,24 +446,24 @@ you should place your code here."
   ;;            :apply t))
 
 
-  ;; ;; config for new frames created from daemon
-  ;; (defun my-frame-config (&optional frame)
-  ;;   (with-selected-frame (or frame (selected-frame))
-  ;;     ;; do things to FRAME
-  ;;     (spacemacs/toggle-indent-guide-globally-on)
-  ;;     (spacemacs/toggle-camel-case-motion-globally-on)
-  ;;     (spacemacs/toggle-smartparens-globally-on)
-  ;;     (spacemacs/toggle-version-control-margin-globally-on)
-  ;;     (spacemacs/enable-transparency)
-  ;;     (find-file "~/Dropbox/org/brain.org")
-  ;;     )
-  ;;   )
+  ;; config for new frames created from daemon
+  (defun my-frame-config (&optional frame)
+    (with-selected-frame (or frame (selected-frame))
+      ;; do things to FRAME
+      (spacemacs/toggle-indent-guide-globally-on)
+      (spacemacs/toggle-camel-case-motion-globally-on)
+      (spacemacs/toggle-smartparens-globally-on)
+      (spacemacs/toggle-version-control-margin-globally-on)
+      (spacemacs/enable-transparency)
+      (find-file "~/Dropbox/org/brain.org")
+      )
+    )
 
 
   ;; ;; apply settings to new/initial frames
-  ;; (add-hook 'after-init-hook 'my-frame-config)
-  ;; (add-hook 'after-make-frame-functions 'my-frame-config)
-  ;; (my-frame-config)
+  (add-hook 'after-init-hook 'my-frame-config)
+  (add-hook 'after-make-frame-functions 'my-frame-config)
+  (my-frame-config)
 
 
 
