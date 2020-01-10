@@ -1,4 +1,3 @@
-alias ls="ls -F --color=tty"
 alias i3conf="vim ~/.config/i3/config"
 alias config='/usr/bin/git --git-dir=/home/josh/.cfg/ --work-tree=/home/josh'
 alias ex="chmod +x"
@@ -17,3 +16,4 @@ alias termite='termite --class termite'
 alias vol='~/bin/setvolume'
 alias srcz='source ~/.zshrc'
 alias rgrtor='ranger ~/hdd/Torrents'
+alias ls="ls -F --color=tty"

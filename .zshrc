@@ -7,22 +7,10 @@ if [[ $TERM = "dumb" ]]; then
     unset zle_bracketed_paste
 fi
 
-# export EMACS="*term*"
-# export PROMPT_COMMAND=""
-
-# Path to your oh-my-zsh installation.
-# export ZSH="/home/josh/.oh-my-zsh"
-
-# export profile vars
-# export EDITOR="emacsclient -c"
-
 # import shared aliases
 source ~/.sh_aliases
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Set name of the theme to load
 ZSH_THEME="robbyrussell"
 # ZSH_THEME="bira"
 # ZSH_THEME="aussiegeek"
@@ -48,10 +36,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh_plugins/zsh-autopair/zsh-autopair.plugin.zsh
 
-
 # You may need to manually set your language environment
 export LANG=en_CA.UTF-8
-
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
