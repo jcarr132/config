@@ -153,6 +153,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          ;; zenburn
+                         doom-nord
                          ;; ewal-spacemacs
                          solarized-dark
                          ;; spacemacs-dark
@@ -610,7 +611,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
+    ("70ed3a0f434c63206a23012d9cdfbe6c6d4bb4685ad64154f37f3c15c10f3b90" "947190b4f17f78c39b0ab1ea95b1e6097cc9202d55c73a702395fc817f899393" "cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(global-git-gutter+-mode t)
  '(org-agenda-files (quote ("~/Dropbox/org/brain.org")))

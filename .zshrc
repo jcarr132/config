@@ -9,6 +9,7 @@ fi
 
 # import shared aliases
 source ~/.sh_aliases
+alias ls='ls -F --color=tty'
 
 # Set name of the theme to load
 ZSH_THEME="robbyrussell"
@@ -103,3 +104,5 @@ zle -N zle-line-init
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+
+source /home/josh/.config/broot/launcher/bash/br

@@ -16,4 +16,6 @@ alias termite='termite --class termite'
 alias vol='~/bin/setvolume'
 alias srcz='source ~/.zshrc'
 alias rgrtor='ranger ~/hdd/Torrents'
-alias ls="ls -F --color=tty"
+alias ls='ls -F --color=tty'
+alias pom="termdown 25m -t break -b -s -c 15
+alias stream="mkchromecast --video -i""
