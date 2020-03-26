@@ -1,21 +1,18 @@
-alias i3conf="vim ~/.config/i3/config"
 alias config='/usr/bin/git --git-dir=/home/josh/.cfg/ --work-tree=/home/josh'
 alias ex="chmod +x"
-alias cdcode="cd ~/Dropbox/Code"
-alias cdbr="cd ~/Dropbox/Code/BrainGridLock"
 alias cdppr="cd ~/Dropbox/Papers/pdfs/"
 alias r="R"
 alias bats="BATS_RUN_SKIPPED=true bats"
 alias rm='safe-rm'
-alias srcz='source ~/.zshrc'
 alias nwp='new_wallpaper'
-alias cddb='cd ~/Dropbox/'
 alias rgr=ranger
-alias rgrwp='ranger ~/Dropbox/wallpapers'
-alias termite='termite --class termite'
+alias wp='ranger ~/Dropbox/wallpapers'
 alias vol='~/bin/setvolume'
 alias srcz='source ~/.zshrc'
-alias rgrtor='ranger ~/hdd/Torrents'
 alias ls='ls -F --color=tty'
 alias pom="termdown 25m -t break -b -s -c 15
 alias stream="mkchromecast --video -i""
+alias dl='ranger ~/hdd/downloads'
+alias tor='ranger ~/hdd/Torrents'
+alias db='ranger ~/Dropbox'
+alias ths='ranger ~/Dropbox/thesis'

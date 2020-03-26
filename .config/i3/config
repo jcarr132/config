@@ -279,11 +279,11 @@ exec --no-startup-id xautolock -time 10 -locker "~/.local/bin/lock.sh"
 # i3-gaps settings
 gaps inner 10
 gaps outer 0
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 3
 # smart_borders on
 # hide_edge_borders         both
 # new_float normal 0
-default_floating_border none
+# default_floating_border none
 
 
 # resize gaps mode

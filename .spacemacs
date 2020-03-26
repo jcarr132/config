@@ -73,11 +73,14 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      dashboard
+                                      all-the-icons
+                                      page-break-lines
                                       nov
-                                      ;; ewal
-                                      ;; ewal-spacemacs-themes
+                                      ewal
+                                      ewal-spacemacs-themes
                                       ;; ewal-spacemacs-theme
-                                      ;; ewal-evil-cursors
+                                      ewal-evil-cursors
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -155,8 +158,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          ;; zenburn
-                         doom-nord
-                         ;; ewal-spacemacs
+                         ;; ewal-spacemacs-classic
+                         ;; doom-nord
                          solarized-dark
                          ;; spacemacs-dark
                          ;; spacemacs-light
@@ -382,12 +385,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (defun my-frame-config (&optional frame)
       (with-selected-frame (or frame (selected-frame))
         ;; do things to FRAME
-        (setq spacemacs/toggle-indent-guide-globally-on)
+        (spacemacs/toggle-indent-guide-globally-on)
         (spacemacs/toggle-camel-case-motion-globally-on)
         (spacemacs/toggle-smartparens-globally-on)
         (spacemacs/toggle-version-control-margin-globally-on)
         (spacemacs/enable-transparency)
-        (find-file "~/Dropbox/org/brain.org")
+        ;; (find-file "~/Dropbox/org/brain.org")
+        (load-theme 'ewal-spacemacs-modern)
+        (get-buffer "*dashboard*")
         )
       )
 
@@ -396,7 +401,30 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (add-hook 'after-init-hook 'my-frame-config)
     (add-hook 'after-make-frame-functions 'my-frame-config)
     (my-frame-config)
-    (find-file "~/Dropbox/org/brain.org")
+    ;; (find-file "~/Dropbox/org/brain.org")
+
+
+    ;; configure ewal (pywal colours in emacs)
+    (use-package ewal
+      :init (setq ewal-use-built-in-always-p nil
+                  ewal-use-built-in-on-failure-p t
+                  ewal-built-in-palette "sexy-material"))
+    (use-package ewal-spacemacs-themes
+      :init (progn
+              (show-paren-mode +1)
+              (global-hl-line-mode))
+      :config (progn
+                (load-theme 'ewal-spacemacs-modern)
+                (enable-theme 'ewal-spacemacs-modern)))
+    (use-package ewal-evil-cursors
+      :after (ewal-spacemacs-themes)
+      :config (ewal-evil-cursors-get-colors
+               :apply t))
+
+    (load-theme 'ewal-spacemacs-modern)
+
+
+  (setq initial-buffer-choice #'(lambda () (get-buffer "*dashboard*")))
   )
 
 (defun dotspacemacs/user-config ()
@@ -406,72 +434,99 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  (load-theme 'ewal-spacemacs-modern)
+
   (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-  ;; ORG-MODE
-  ;; (setq org-todo-keyword-faces
-  ;;       '(("TODO" . (:background ""))
-  ;;         ("DONE" . (:background ""))
-  ;;         ("DOING" . (:background ""))
-  ;;         ("WAITING" . (:background ""))
-  ;;         ("SCHEDULED" . (:background ""))
-  ;;         ("TEST" . (:background ""))
-  ;;         ("CANCELLED" . (:background ""))
-  ;;         ("UNREAD" . (:background ""))
-  ;;         ("READING" . (:background ""))
-  ;;         ("NEXT" . (:background ""))
-  ;;         ("IN-PROGRESS" . (:background ""))
-  ;;         ("SOON" . (:background ""))
-  ;;         ("SOMEDAY" . (:background ""))
-  ;;         ))
+  ;; dashboard
+  ;; Set the title
+  (setq dashboard-banner-logo-title "Welcome to Emacs!")
 
-  ;; org mode
+  ;; Set the banner
+  (setq dashboard-startup-banner 'logo)
+  ;; Value can be
+  ;; 'official which displays the official emacs logo
+  ;; 'logo which displays an alternative emacs logo
+  ;; 1, 2 or 3 which displays one of the text banners
+  ;; "path/to/your/image.png" which displays whatever image you would prefer
+
+  ;; Content is not centered by default. To center, set
+  (setq dashboard-center-content t)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq show-week-agenda-p t)
+  (setq dashboard-items '(
+                          (recents  . 10)
+                          (projects . 10)
+                          (agenda . 10)
+                          )
+        )
+
+
+  (use-package dashboard
+    :ensure t
+    :config
+    (defun dashboard-setup ()
+      "Setup post initialization hooks.
+      If a command line argument is provided,
+      assume a filename and skip displaying Dashboard."
+      ;; Display useful lists of items
+      (dashboard-insert-startupify-lists)
+      (when (< (length command-line-args) 2 )
+        (switch-to-buffer dashboard-buffer-name)
+        (goto-char (point-min))
+        (redisplay)))
+    (dashboard-setup))
+
+
+  (setq initial-buffer-choice #'(lambda () (get-buffer "*dashboard*")))
+
+
+
+  ;; ORG-MODE
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:background ""))
+          ("DONE" . (:background ""))
+          ("DOING" . (:background ""))
+          ("WAITING" . (:background ""))
+          ("SCHEDULED" . (:background ""))
+          ("TEST" . (:background ""))
+          ("CANCELLED" . (:background ""))
+          ("UNREAD" . (:background ""))
+          ("READING" . (:background ""))
+          ("NEXT" . (:background ""))
+          ("IN-PROGRESS" . (:background ""))
+          ("SOON" . (:background ""))
+          ("SOMEDAY" . (:background ""))
+          ))
+
   ;; Hide leading stars
   (setq org-startup-indented t
         org-hide-leading-stars t)
 
-  ;; ;; configure ewal (pywal colours in emacs)
-  ;; (use-package ewal
-  ;;   :init (setq ewal-use-built-in-always-p nil
-  ;;               ewal-use-built-in-on-failure-p t
-  ;;               ewal-built-in-palette "sexy-material"))
-  ;; (use-package ewal-spacemacs-themes
-  ;;   :init (progn
-  ;;             (show-paren-mode +1)
-  ;;             (global-hl-line-mode))
-  ;;   :config (progn
-  ;;             (load-theme 'ewal-spacemacs-modern)
-  ;;             (enable-theme 'ewal-spacemacs-modern)))
-  ;; (use-package ewal-evil-cursors
-  ;;   :after (ewal-spacemacs-themes)
-  ;;   :config (ewal-evil-cursors-get-colors
-  ;;            :apply t))
 
-
-  ;; config for new frames created from daemon
-  (defun my-frame-config (&optional frame)
-    (with-selected-frame (or frame (selected-frame))
-      ;; do things to FRAME
-      (spacemacs/toggle-indent-guide-globally-on)
-      (spacemacs/toggle-camel-case-motion-globally-on)
-      (spacemacs/toggle-smartparens-globally-on)
-      (spacemacs/toggle-version-control-margin-globally-on)
-      (spacemacs/enable-transparency)
-      (find-file "~/Dropbox/org/brain.org")
-      )
-    )
-
-
-  ;; ;; apply settings to new/initial frames
+  ;; apply settings to new/initial frames
   (add-hook 'after-init-hook 'my-frame-config)
   (add-hook 'after-make-frame-functions 'my-frame-config)
   (my-frame-config)
 
 
-
   (defun my-org-config ()
     (spacemacs/toggle-visual-line-numbers-on)
+    (org-latex-preview)
+    (org-toggle-pretty-entities)
+    (add-to-list 'org-latex-classes
+                 '("book-noparts"
+                   "\\documentclass{book}"
+                   ("\\chapter{%s}" . "\\chapter*{%s}")
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
     )
   (add-hook 'org-mode-hook 'my-org-config)
 
@@ -487,12 +542,15 @@ you should place your code here."
         org-ref-bibliography-notes "~/Dropbox/Papers/notes.org"
         )
   (setq bibtex-completion-bibliography "~/Dropbox/Papers/references.bib"
-        bibtex-completion-library-path "~/Dropbox/Papers/bibtex-pdfs"
+        bibtex-completion-library-path "~/Dropbox/Papers/pdfs"
         bibtex-completion-notes-path "~/Dropbox/Papers/helm-bibtex-notes")
   (setq-default TeX-PDF-mode t)
   ;; (TeX-global-PDF-mode t)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   ;; (setenv "PATH" (concat (getenv "PATH") ":/usr/bin/latex"))
+
+  (setq org-latex-pdf-process
+        '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
 
   (defun org-mode-reftex-setup ()
     (load-library "reftex")
@@ -504,8 +562,12 @@ you should place your code here."
            (add-hook 'org-mode-hook 'org-mode-reftex-setup)
            )))
 
+  (setq org-default-notes-file "~/Dropbox/org/capture.org")
 
   ;; setup indent-width for JS and related filetypes
+
+
+
   (defun my-setup-indent (n)
     ;; java/c/c++
     (setq c-basic-offset n)
@@ -574,6 +636,40 @@ you should place your code here."
 ;; fix annoying file lock with multiple emacs instances
 (setq recentf-save-file (format "/tmp/recentf.%s" (emacs-pid)))
 
+
+;; r
+(defun then_R_operator ()
+  "R - %>% operator or 'then' pipe operator"
+  (interactive)
+  (just-one-space 1)
+  (insert "%>%")
+  (reindent-then-newline-and-indent))
+
+(add-hook 'ess-mode-hook
+          (lambda ()
+            (define-key ess-mode-map (kbd "C-S-m") 'then_R_operator)
+            (define-key inferior-ess-mode-map (kbd "C-S-m") 'then_R_operator)
+
+            (define-key ess-mode-map (kbd "M--") 'ess-insert-assign)
+            (define-key inferior-ess-mode-map (kbd "M--") 'ess-insert-assign)
+            )
+          )
+
+(use-package org-tempo)
+
+
+;; babel
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (emacs-lisp . t)
+   (python . t)
+   ;; (ipython . t)
+   ;; (sh . t)
+   (shell . t)
+   (js . t)
+   ))
 ;; end of user-config
 
 )
@@ -613,13 +709,43 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
+    ("7f791f743870983b9bb90c8285e1e0ba1bf1ea6e9c9a02c60335899ba20f3c94" "ba72dfc6bb260a9d8609136b9166e04ad0292b9760a3e2431cf0cd0679f83c3a" "cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
  '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#4C566A")
  '(global-git-gutter+-mode t)
+ '(jdee-db-active-breakpoint-face-colors (cons "#191C25" "#81A1C1"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#191C25" "#A3BE8C"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#191C25" "#434C5E"))
+ '(objed-cursor-color "#BF616A")
  '(org-agenda-files (quote ("~/Dropbox/org/brain.org")))
  '(package-selected-packages
    (quote
-    (yaml-mode nov esxml xresources-theme zenburn-theme zen-and-art-theme yapfify xterm-color ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toml-mode toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme racer pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-rust flycheck-pos-tip flx-ido flatui-theme flatland-theme fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell ewal-evil-cursors evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-data-view espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-web company-tern company-statistics company-shell company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme cargo busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (dashboard-project-status org-dashboard nov esxml xresources-theme zenburn-theme zen-and-art-theme yapfify xterm-color ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toml-mode toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme racer pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-rust flycheck-pos-tip flx-ido flatui-theme flatland-theme fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell ewal-evil-cursors evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-data-view espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-web company-tern company-statistics company-shell company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme cargo busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(pdf-view-midnight-colors (cons "#ECEFF4" "#2E3440"))
+ '(rustic-ansi-faces
+   ["#2E3440" "#BF616A" "#A3BE8C" "#EBCB8B" "#81A1C1" "#B48EAD" "#88C0D0" "#ECEFF4"])
+ '(vc-annotate-background "#2E3440")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#A3BE8C")
+    (cons 40 "#bbc28b")
+    (cons 60 "#d3c68b")
+    (cons 80 "#EBCB8B")
+    (cons 100 "#e2b482")
+    (cons 120 "#d99d79")
+    (cons 140 "#D08770")
+    (cons 160 "#c68984")
+    (cons 180 "#bd8b98")
+    (cons 200 "#B48EAD")
+    (cons 220 "#b77f96")
+    (cons 240 "#bb7080")
+    (cons 260 "#BF616A")
+    (cons 280 "#a05b67")
+    (cons 300 "#815664")
+    (cons 320 "#625161")
+    (cons 340 "#4C566A")
+    (cons 360 "#4C566A")))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
