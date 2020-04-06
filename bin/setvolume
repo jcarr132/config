@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-pactl set-sink-volume 0 "$1%"

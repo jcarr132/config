@@ -1,9 +1,0 @@
- #!usr/bin/env bash 
-
-echo 'alias config="usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"' >> ~/.bashrc
-source ~/.bashrc
-echo ".cfg" >> .gitignore
-
-git clone --bare https://www.github.com/joshcarr132/config $HOME/.cfg
-config checkout
-

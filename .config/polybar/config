@@ -25,7 +25,6 @@ green = #aec795
 
 [bar/main]
 bottom = false
-wm-restack = i3
 
 monitor = ${env:MONITOR:}
 
@@ -37,13 +36,12 @@ border-size = 0
 width = 100%
 height = 25
 
-override-redirect = false
 radius = 0
 
 enable-ipc = true
 
-padding-left = 2
-padding-right = 2
+padding-left = 0
+padding-right = 1
 
 module-margin-right = 1
 module-margin-left = 1
@@ -53,7 +51,7 @@ modules-left = i3
 modules-center = date
 modules-right = wlan volume backlight filesystem battery
 
-separator = "|"
+; separator = "|"
 tray-position = right
 
 #background = ${colors.bg}
@@ -63,7 +61,7 @@ pseudo-transparency = false
 foreground = ${colors.modfg}
 
 font-0 = inconsolata:weight=bold:size=14;3
-font-1 = FontAwesome:size=14;3
+font-1 = FontAwesome:size=12;3
 font-2 = FontAwesome 5 Free:size=12:style=Solid;3
 font-3 = Monospace:size=16;3
 
@@ -82,25 +80,25 @@ border-size = 0
 #border-color = #00aaaaaa
 
 width = 100%
-height = 25
+height = 0
 
 override-redirect = false
 radius = 0
 
 enable-ipc = true
 
-padding-left = 0
-padding-right = 0
+padding-left = 5
+padding-right = 5
 
-module-margin-right = 1
-module-margin-left = 1
+module-margin-right = 3
+module-margin-left = 3
 
 
-modules-left = xwindow 
-modules-center = spotify mpd
-modules-right = pomo updates menu0
+modules-left = xwindow
+modules-center = spotify
+; modules-right = updates
 
-separator = "|"
+; separator = "|"
 tray-position = right
 
 #background = ${colors.bg}
@@ -135,7 +133,7 @@ label-mounted-padding = 1
 
 [module/i3]
 type = internal/i3
-format = <label-mode> <label-state>
+format = <label-mode><label-state>
 index-sort = true
 
 label-focused = %name%
@@ -149,12 +147,12 @@ label-unfocused-padding = 1
 
 label-urgent = %name%
 label-urgent-background = ${colors.alt}
-label-urgent-padding = 1
+label-urgent-padding = 2
 
 label-visible = %name%
 label-visible-padding = 1
 
-label-separator = |
+; label-separator = |
 
 pin-workspaces = false
 
