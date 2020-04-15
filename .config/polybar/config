@@ -25,6 +25,7 @@ green = #aec795
 
 [bar/main]
 bottom = false
+wm-restack = bspwm
 
 monitor = ${env:MONITOR:}
 
@@ -47,7 +48,7 @@ module-margin-right = 1
 module-margin-left = 1
 
 
-modules-left = i3
+modules-left = bspwm
 modules-center = date
 modules-right = wlan volume backlight filesystem battery
 
@@ -68,7 +69,6 @@ font-3 = Monospace:size=16;3
 
 [bar/bottom]
 bottom = true
-wm-restack = i3
 
 
 ; monitor = eDP1
@@ -111,6 +111,35 @@ font-0 = inconsolata:weight=bold:size=12;3
 font-1 = FontAwesome:size=12;3
 font-2 = FontAwesome 5 Free:size=10:style=Solid;3
 font-3 = Monospace:size=12;3
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+enable-click = true
+enable-scroll = false
+reverse-scroll = false
+fuzzy-match = true
+inline-mode = true
+
+format = <label-mode><label-state>
+index-sort = true
+
+label-monitor = %name%
+
+label-focused = %index%: %name%
+label-focused-padding = 1
+label-focused-foreground = ${colors.bg}
+label-focused-background = ${colors.modfg}
+
+label-occupied = %index%: %name%
+label-occupied-padding = 1
+label-unfocused-background = ${colors.fg}
+
+label-urgent = %index%: %name% !
+label-urgent-background = ${colors.alt}
+label-urgent-padding = 2
+
+
 
 [module/xwindow]
 type = internal/xwindow

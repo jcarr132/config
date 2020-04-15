@@ -1,17 +1,14 @@
 # set PATH
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# export EDITOR=/usr/bin/emacs
-export EDITOR='et'
+export EDITOR='et' # emacs client in terminal mode
 
 # export profile vars
 export EMACS="*term*"
 export PROMPT_COMMAND=""
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/josh/.oh-my-zsh"
 
-
+export XDG_CONFIG_HOME="$HOME/.config"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 

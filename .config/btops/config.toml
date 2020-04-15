@@ -1,0 +1,56 @@
+# This config is focused on classified names.
+#
+# When a new client is spawned, it checks its name against
+# any of the classifiers.  If there's a match, it will use
+# the name specified.  If not, the desktop name will be
+# a space separated string of opened clients.  All empty
+# desktops will use the constant name
+
+min = 10
+max = 10
+remove-empty = true
+watch-config = true
+append-when-occupied = true
+renamers = ["classified", "client", "constant"]
+
+[names]
+constant = ""
+
+[[names.classified]]
+"" = ["firefox"]
+
+[[names.classified]]
+"" = ["Emacs"]
+
+[[names.classified]]
+"" = ["Steam"]
+
+[[names.classified]]
+"" = ["Spotify"]
+
+[[names.classified]]
+"" = ["Zathura"]
+
+[[names.classified]]
+"" = ["libreoffice-writer"]
+
+[[names.classified]]
+"" = ["libreofice-impress"]
+
+[[names.classified]]
+"" = ["Caprine"]
+
+[[names.classified]]
+"" = ["Deluge", "Deluge-gtk"]
+
+[[names.classified]]
+"" = ["Thunar", "ranger"]
+
+[[names.classified]]
+"" = ["Wine"]
+
+[[names.classified]]
+"" = ["email", "Thunderbird"]
+
+[[names.classified]]
+"" = ["Alacritty"]
