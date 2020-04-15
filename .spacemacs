@@ -731,6 +731,14 @@ you should place your code here."
    (shell . t)
    (js . t)
    ))
+
+;; run code blocks without prompt
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "ditaa")))  ;don't ask for ditaa
+(setq org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+
+
+
 ;; end of user-config
 
 )

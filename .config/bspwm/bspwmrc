@@ -3,7 +3,8 @@
 # startup applications
 sxhkd &
 polybarstart &
-~/bin/rebind_caps_to_escape &
+# ~/bin/rebind_caps_to_escape &
+setxkbmap -option caps:escape &
 unclutter &
 compton -f &
 emacs --daemon &
@@ -11,19 +12,21 @@ dropbox &
 redshift-gtk &
 nm-applet &
 wal -R &
+btops &
+xautolock -time 10 -locker betterlockscreen -l dim &
 xinput set-prop 12 276 1 & # touchpad settings
 xinput set-prop 12 298 1 &
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
-bspc config border_width         5
+bspc config border_width         3
 bspc config window_gap          12
 
-bspc config split_ratio          0.52
+bspc config split_ratio          0.55
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a firefox desktop='^2' state=pseudotiled follow=on
+bspc rule -a firefox desktop='^2' state=pseudotiled follow=off
 
 fg_color=$(xrdb -query | grep -m1 foreground | awk '{ print $2 }')
 bg_color=$(xrdb -query | grep -m1 background | awk '{ print $2 }')

@@ -4,10 +4,25 @@
 super + Return
   alacritty
 
+# launch emacs
+super + shift + Return
+  ec
+
+# launch firefox
+super + shift + w
+  firefox
+
 # launch programs with dmenu
-super + @space
-  dmenu_run
-  # dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
+super + space
+  dmen
+
+# open logout/shutdown/suspend menu
+super + Escape
+  dmenu_logout
+
+# lock screen with betterlockscreen
+super + shift + x
+  betterlockscreen -l dim
 
 # open enpass
 super + bar
@@ -39,7 +54,7 @@ XF86MonBrightnessDown
 ## bspwm & sxhkd bindings
 
 # make sxhkd reload its configuration files:
-super + shift + r
+super + alt + shift + r
 	pkill -USR1 -x sxhkd
 
 # quit/restart bspwm
@@ -53,6 +68,10 @@ super + {_,shift + }q
 # alternate between the tiled and monocle layout
 super + m
   bspc desktop -l next
+
+# Flip layout vertically/horizontally
+super + {_,shift + }e
+	bspc node @/ --flip {vertical,horizontal}
 
 # set the window state
 super + {t,shift + t,s,f}
@@ -89,6 +108,10 @@ super + ctrl + {1-9}
 # cancel the preselection for the focused node
 super + ctrl + space
 	bspc node -p cancel
+
+# rotate windows
+super + {_,shift + }r
+  bspc node @/ -R {90, -90}
 
 # expand a window by moving one of its sides outward
 super + alt + {h,j,k,l}

@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
-
+# set a new wallpaper/colourscheme with wal and make changes known to other programs
 wal -i $@
 cp "$1" ~/.wallpaper
-cp "$1" /usr/share/backgrounds/desktop.jpg
+cp "$1" /usr/share/backgrounds/.wallpaper
+betterlockscreen -u ~/.wallpaper
 exit 0
