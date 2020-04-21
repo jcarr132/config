@@ -1,0 +1,10 @@
+RET=$(echo -e "shutdown\nreboot\nsuspend\nlogout\nlock" | dmenu -l 5 -p "Logout")
+
+case $RET in
+	shutdown) sudo poweroff ;;
+	reboot) sudo reboot ;;
+  suspend) betterlockscreen -l dim & sleep 2 && systemctl suspend ;;
+	logout) xdotool key "super+shift+q" ;;
+  lock) betterlockscreen -l dim ;;
+	*) ;;
+esac

@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-mbsync gmail 1> /dev/null &
+mbsync personal 1> /dev/null &
 mbsync carleton 1> /dev/null &
-termite -e neomutt --class email &
+alacritty --class email,email -e neomutt &

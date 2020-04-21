@@ -8,6 +8,7 @@ alias wp='ranger ~/Dropbox/wallpapers'
 alias srcz='source ~/.zshrc'
 alias ls='ls -F --color=tty'
 alias pom="termdown 25m -t break -b -s -c 15"
+alias pipes="pipes.sh -p 3 -t 7 -R"
 alias dl='ranger ~/hdd/downloads'
 alias tor='ranger ~/hdd/Torrents'
 alias db='ranger ~/Dropbox'

@@ -18,39 +18,15 @@ constant = ""
 
 [[names.classified]]
 "" = ["firefox"]
-
-[[names.classified]]
 "" = ["Emacs"]
-
-[[names.classified]]
-"" = ["Steam"]
-
-[[names.classified]]
-"" = ["Spotify", "spotify", "ncspot"]
-
-[[names.classified]]
-"" = ["Zathura"]
-
-[[names.classified]]
-"" = ["libreoffice-writer"]
-
-[[names.classified]]
-"" = ["libreofice-impress"]
-
-[[names.classified]]
-"" = ["Caprine"]
-
-[[names.classified]]
-"" = ["Deluge", "Deluge-gtk"]
-
-[[names.classified]]
-"" = ["Thunar", "ranger"]
-
-[[names.classified]]
-"" = ["Wine"]
-
-[[names.classified]]
 "" = ["email", "Thunderbird"]
-
-[[names.classified]]
+"" = ["Steam"]
+"" = ["Spotify"]
+"" = ["Zathura"]
+"" = ["libreoffice-writer"]
+"" = ["libreofice-impress"]
+"" = ["Caprine"]
+"" = ["Deluge", "Deluge-gtk"]
+"" = ["Thunar", "ranger"]
+"" = ["Wine"]
 "" = ["Alacritty"]

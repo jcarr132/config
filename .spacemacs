@@ -332,7 +332,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -429,6 +429,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (load-theme 'ewal-spacemacs-modern)
 
 
+    ;; run code blocks without prompt
+    (setq org-confirm-babel-evaluate nil)
 
 
   (setq initial-buffer-choice #'(lambda () (get-buffer "*dashboard*")))
@@ -733,9 +735,7 @@ you should place your code here."
    ))
 
 ;; run code blocks without prompt
-(defun my-org-confirm-babel-evaluate (lang body)
-  (not (string= lang "ditaa")))  ;don't ask for ditaa
-(setq org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+(setq org-confirm-babel-evaluate nil)
 
 
 

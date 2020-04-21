@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+alacritty --class ncspot,ncspot -e ncspot &
