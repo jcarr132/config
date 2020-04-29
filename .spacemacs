@@ -461,7 +461,7 @@ you should place your code here."
 
   ;; dashboard
   ;; Set the title
-  (setq dashboard-banner-logo-title "Welcome to Emacs!")
+  (setq dashboard-banner-logo-title "")
 
   ;; Set the banner
   (setq dashboard-startup-banner 'logo)
@@ -697,7 +697,7 @@ you should place your code here."
   (revert-buffer t t))
 
 ;; fix annoying file lock with multiple emacs instances
-(setq recentf-save-file (format "/tmp/recentf.%s" (emacs-pid)))
+;; (setq recentf-save-file (format "/tmp/recentf.%s" (emacs-pid)))
 
 
 ;; r
@@ -778,7 +778,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
+    ("229c5cf9c9bd4012be621d271320036c69a14758f70e60385e87880b46d60780" "ba72dfc6bb260a9d8609136b9166e04ad0292b9760a3e2431cf0cd0679f83c3a" "76c5b2592c62f6b48923c00f97f74bcb7ddb741618283bdb2be35f3c0e1030e3" "cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "86704574d397606ee1433af037c46611fb0a2787e8b6fd1d6c96361575be72d2" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#4C566A")
  '(global-git-gutter+-mode t)
@@ -820,5 +820,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ '(default ((t (:background nil))))
+ '(org-block ((t (:background "#000000"))))
+ '(org-block-begin-line ((t (:foreground "#ffffff" :background "#000000"))))
+ '(org-block-end-line ((t (:foreground "#ffffff" :background "#000000")))))
 )

@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 
 # launch TUIR (Terminal UI for Reddit)
-termite -e tuir --class reddit,reddit
+alacritty --class reddit,reddit -e tuir

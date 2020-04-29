@@ -24,6 +24,10 @@ super + Escape
 super + shift + x
   betterlockscreen -l dim
 
+# reset wal colours (useful for some terminal apps e.g., neomutt, ncspot, emacs -nw)
+super + w
+  wal -R
+
 # open enpass
 super + bar
   /opt/enpass/Enpass showassistant

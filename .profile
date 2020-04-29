@@ -1,10 +1,10 @@
 # set PATH
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export EDITOR='et' # emacs client in terminal mode
+export EDITOR='ec' # emacs client in terminal mode
 
 # export profile vars
-export EMACS="*term*"
+# export EMACS="*term*"
 export PROMPT_COMMAND=""
 
 
