@@ -26,6 +26,7 @@ ICONS = {
         "wine":                "",
         "reddit":              "",
         "feh":                 "",
+        "skype":               "",
 
         os.environ.get('TERMINAL'): "",
         None: "*"
