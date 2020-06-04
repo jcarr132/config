@@ -26,6 +26,7 @@ bspc rule -a ncspot state=pseudo_tiled desktop='^4'
 bspc rule -a email state=pseudo_tiled desktop='^3' rectangle=1200x900+0+0
 bspc rule -a feh state=floating rectangle=1200x800+0+0 center=true
 bspc rule -a Caprine state=pseudo_tiled rectangle=1200x900+0+0
+bspc rule -a Zathura state=floating rectangle=800x1000+0+0 center=true
 
 # startup applications
 sxhkd &

@@ -16,22 +16,29 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
+Plug 'ryanoasis/vim-devicons'
+Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'bling/vim-airline'
-" Plug 'jreybert/vimagit'
-Plug 'airblade/vim-gitgutter'
+Plug 'jreybert/vimagit'
+" Plug 'airblade/vim-gitgutter'
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'ncm2/ncm2'
 Plug 'SirVer/ultisnips'
 Plug 'gaalcaras/ncm-R'
+Plug 'jalvesaq/Nvim-R'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'lervag/vimtex'
 Plug 'Konfekt/FastFold'
 Plug 'ap/vim-css-color'
+Plug 'arcticicestudio/nord-vim'
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -44,6 +51,8 @@ set clipboard+=unnamedplus
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
+  set spell
+  set spelllang=en_ca
 	filetype plugin on
 	syntax on
 	set encoding=utf-8
@@ -52,8 +61,10 @@ set clipboard+=unnamedplus
 	set nobackup
 	set expandtab                   " Use spaces instead of tabs.
 	set smarttab                    " Be smart using tabs ;)
-	set shiftwidth=4                " One tab == four spaces.
-	set tabstop=4                   " One tab == four spaces.
+	set shiftwidth=2                " One tab == four spaces.
+	set tabstop=2                   " One tab == four spaces.
+
+    " colorscheme nord
 
 
 " Enable autocompletion:
@@ -68,7 +79,7 @@ set clipboard+=unnamedplus
 	let NERDTreeShowHidden=1
 	let NERDTreeMinimalUI = 1
 	let g:NERDTreeWinSize=38
-     map <leader>n :NERDTreeToggle<CR>
+    map <leader>n :NERDTreeToggle<CR>
 
 " buffer management and fzf
 set hidden
@@ -89,6 +100,10 @@ nnoremap <leader>s :Snippets<CR>
 
 " better splits
 	set splitbelow splitright
+
+" indent line
+let g:indentLine_enabled = 1
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
@@ -115,11 +130,29 @@ nnoremap <leader>s :Snippets<CR>
 " vimtex settings
 let g:tex_flavor  = 'latex'
 let g:tex_conceal = ''
-let g:vimtex_fold_manual = 1
+" let g:vimtex_fold_enabled = 1
+" let g:vimtex_fold_manual = 1
 let g:vimtex_latexmk_continuous = 1
 let g:vimtex_compiler_progname = 'nvr'
 
-map <leader>t :VimtexTocToggle
+" open latex table of contents
+map <leader>t :VimtexTocToggle<CR>
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
+" linting
+let g:ale_linters = {
+        \'javascript': ['eslint'],
+        \'r': ['lintr'],
+    \}
+
+let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'javascript': ['prettier', 'eslint'],
+    \   'r': ['styler'],
+    \}
+
 
 " NCM2
 augroup NCM2
@@ -147,7 +180,7 @@ augroup END
     " When the <Enter> key is pressed while the popup menu is visible, it only
     " hides the menu. Use this mapping to close the menu and also start a new
     " line.
-    inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
     " Use <TAB> to select the popup menu:
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"

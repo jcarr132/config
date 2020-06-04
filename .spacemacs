@@ -606,7 +606,7 @@ you should place your code here."
         org-ref-bibliography-notes "~/Dropbox/Papers/notes.org"
   )
   (setq bibtex-completion-bibliography "~/Dropbox/Papers/references.bib"
-        bibtex-completion-library-path "~/Dropbox/Papers/pdfs"
+        bibtex-completion-library-path "~/Dropbox/Papers/references.bib"
         bibtex-completion-notes-path "~/Dropbox/Papers/helm-bibtex-notes")
   (setq-default TeX-PDF-mode t)
   ;; (TeX-global-PDF-mode t)

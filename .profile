@@ -1,7 +1,8 @@
 # set PATH
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export EDITOR='ec' # emacs client in terminal mode
+# export EDITOR='ec' # emacs client in terminal mode
+export EDITOR='nvim'
 
 # export profile vars
 # export EMACS="*term*"
