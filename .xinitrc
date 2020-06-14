@@ -10,7 +10,8 @@ sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
 # DEFAULT_SESSION='i3 --shmlog-size 0'
-DEFAULT_SESSION='bspwm'
+# DEFAULT_SESSION='bspwm'
+DEFAULT_SESSION='dwm'
 
 # merge in defaults and keymaps
 

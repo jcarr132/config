@@ -9,6 +9,10 @@ endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
 Plug 'tpope/vim-surround'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
@@ -16,11 +20,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
+Plug 'justinmk/vim-sneak'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/rainbow_parentheses.vim'
-" Plug 'bling/vim-airline'
 Plug 'jreybert/vimagit'
-" Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
@@ -51,7 +54,8 @@ set clipboard+=unnamedplus
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
-  set spell
+  set smartcase
+  " set spell
   set spelllang=en_ca
 	filetype plugin on
 	syntax on
@@ -71,6 +75,18 @@ set clipboard+=unnamedplus
 	set wildmode=longest,list,full
         autocmd BufEnter * call ncm2#enable_for_buffer()
 	set completeopt=noinsert,menuone,noselect
+
+" Toggle spellchecking
+function! ToggleSpellCheck()
+  set spell!
+  if &spell
+    echo "Spellcheck ON"
+  else
+    echo "Spellcheck OFF"
+  endif
+endfunction
+nnoremap <silent> <Leader>S :call ToggleSpellCheck()<CR>
+
 
 " nerdtree config
 	let g:NERDTreeDirArrowExpandable = '►'
@@ -127,6 +143,13 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 	autocmd BufWritePre * %s/\s\+$//e
 	autocmd BufWritepre * %s/\n\+\%$//e
 
+" vim-easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " vimtex settings
 let g:tex_flavor  = 'latex'
 let g:tex_conceal = ''
@@ -140,6 +163,14 @@ map <leader>t :VimtexTocToggle<CR>
 
 " vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
+" goyo
+nmap <leader>g :Goyo<CR>
+let g:limelight_conceal_ctermfg = 'DarkGray'
+let g:limelight_default_coefficient = 0.7
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 
 " linting
 let g:ale_linters = {
