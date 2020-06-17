@@ -2,8 +2,8 @@
 
 # launch terminal
 super + Return
-	#alacritty
-  $TERMINAL
+	alacritty
+  # exec $TERMINAL
 
 # launch emacs
 super + shift + Return
@@ -11,8 +11,8 @@ super + shift + Return
 
 # launch firefox
 super + shift + w
-  # firefox
-  $BROWSER
+  firefox
+  # exec $BROWSER
 
 # launch programs with dmenu
 super + space
