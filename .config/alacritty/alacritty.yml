@@ -101,6 +101,9 @@ window:
 
 # Font configuration
 font:
+  normal:
+    familt: "Hack"
+    style: Regular
   # Normal (roman) font face
   #normal:
     # Font family

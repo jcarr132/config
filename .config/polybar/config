@@ -63,10 +63,11 @@ background-alt = #aa090909
 pseudo-transparency = false
 foreground = ${colors.modfg}
 
-font-0 = Source Code Pro:weight=bold:size=12;3
-font-1 = la\-regular\-400:style:Regular:size=18;3
-font-2 = la\-brands\-400:style:Regular:size=18;3
-font-3 = la\-solid\-900:style:Regular:size=18;3
+; font-0 = Source Code Pro:weight=bold:size=12;3
+font-0 =  Hack Nerd Font:weight=bold:size=13;3
+; font-1 = la\-regular\-400:style:Regular:size=18;3
+; font-2 = la\-brands\-400:style:Regular:size=18;3
+; font-3 = la\-solid\-900:style:Regular:size=18;3
 ; font-4 = FontAwesome:size=12;3
 ; font-5 = FontAwesome 5 Free:size=12:style=Solid;3
 
