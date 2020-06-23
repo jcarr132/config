@@ -7,10 +7,11 @@ import subprocess
 import sys
 
 ICONS = {
-        "emacs":               "",
+        "emacs":               "",
         "firefox":             "",
+        "vivaldi-stable":      "爵",
         "spotify":             "",
-        "alacritty":           "",
+        "alacritty":           "",
         "ncspot":              "",
         "email":               "",
         "steam":               "",
