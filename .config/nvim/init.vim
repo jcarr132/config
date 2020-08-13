@@ -105,8 +105,6 @@ nnoremap <leader>k :bnext<CR>
 nnoremap <leader><leader> :b#<CR>
 
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>l :BLines<CR>
-nnoremap <leader>L :Lines<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>F :GFiles<CR>
 nnoremap <leader>s :Snippets<CR>
@@ -151,12 +149,18 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " vimtex settings
-let g:tex_flavor  = 'latex'
-let g:tex_conceal = ''
-" let g:vimtex_fold_enabled = 1
-" let g:vimtex_fold_manual = 1
+let g:tex_flavor  = 'pdflatex'
 let g:vimtex_latexmk_continuous = 1
-let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 
 " open latex table of contents
 map <leader>t :VimtexTocToggle<CR>
