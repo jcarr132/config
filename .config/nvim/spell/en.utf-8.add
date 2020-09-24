@@ -100,7 +100,6 @@ Ienca
 neuromarketing
 PIPEDA
 HIPAA
-viewed by a participant undergoing an fMRI scan [cite].
 reconstructing
 martinovic12
 frank17
@@ -149,10 +148,15 @@ apple
 distractor
 pwds
 online
+EmotivBCI
+PsyToolkit
+hotSOFT
 Emotiv's
 HotSoft
 multifac
 enterability
+se
+deployability
 subcortical
 intracranial
 magnetoencephalography
@@ -175,6 +179,9 @@ voxels
 millimeters
 func
 hemodynamic
+cancelability
+USB
+username
 unobservability
 multifactorial
 biometrically

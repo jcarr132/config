@@ -169,9 +169,10 @@ map <leader>t :VimtexTocToggle<CR>
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 " goyo
-nmap <leader>g :Goyo 90<CR>
+nmap <leader>g :Goyo <CR>
 let g:limelight_conceal_ctermfg = 'DarkGray'
 let g:limelight_default_coefficient = 0.7
+let g:goyo_width = 90
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
