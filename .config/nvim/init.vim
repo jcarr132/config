@@ -27,11 +27,11 @@ Plug 'jreybert/vimagit'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
-Plug 'ncm2/ncm2'
+" Plug 'ncm2/ncm2'
 Plug 'SirVer/ultisnips'
-Plug 'gaalcaras/ncm-R'
+" Plug 'gaalcaras/ncm-R'
 Plug 'jalvesaq/Nvim-R'
-Plug 'ncm2/ncm2-ultisnips'
+" Plug 'ncm2/ncm2-ultisnips'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'honza/vim-snippets'
@@ -42,6 +42,9 @@ Plug 'Konfekt/FastFold'
 Plug 'ap/vim-css-color'
 Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
+Plug 'rust-lang/rust.vim'
+" Plug 'racer-rust/vim-racer'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -67,14 +70,16 @@ set clipboard+=unnamedplus
 	set smarttab                    " Be smart using tabs ;)
 	set shiftwidth=2                " One tab == four spaces.
 	set tabstop=2                   " One tab == four spaces.
+  set cmdheight=1
+  set updatetime=300
 
     " colorscheme nord
 
 
 " Enable autocompletion:
-	set wildmode=longest,list,full
-        autocmd BufEnter * call ncm2#enable_for_buffer()
-	set completeopt=noinsert,menuone,noselect
+	" set wildmode=longest,list,full
+        " autocmd BufEnter * call ncm2#enable_for_buffer()
+	" set completeopt=noinsert,menuone,noselect
 
 " Toggle spellchecking
 function! ToggleSpellCheck()
@@ -164,6 +169,8 @@ let g:vimtex_compiler_latexmk = {
 
 " open latex table of contents
 map <leader>t :VimtexTocToggle<CR>
+" To prevent conceal in LaTeX files
+let g:tex_conceal = ''
 
 " vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
@@ -190,55 +197,91 @@ let g:ale_fixers = {
     \}
 
 
+" Rust
+let g:rustfmt_autosave = 1
+let g:racer_cmd = "/home/josh/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
+
 " NCM2
-augroup NCM2
-  autocmd!
-  " some other settings...
-  " uncomment this block if you use vimtex for LaTex
-  autocmd Filetype tex call ncm2#register_source({
-            \ 'name': 'vimtex',
-            \ 'priority': 8,
-            \ 'scope': ['tex'],
-            \ 'mark': 'tex',
-            \ 'word_pattern': '\w+',
-            \ 'complete_pattern': g:vimtex#re#ncm2,
-            \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-            \ })
-augroup END
+" augroup NCM2
+"   autocmd!
+"   " some other settings...
+"   " uncomment this block if you use vimtex for LaTex
+"   autocmd Filetype tex call ncm2#register_source({
+"             \ 'name': 'vimtex',
+"             \ 'priority': 8,
+"             \ 'scope': ['tex'],
+"             \ 'mark': 'tex',
+"             \ 'word_pattern': '\w+',
+"             \ 'complete_pattern': g:vimtex#re#ncm2,
+"             \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+"             \ })
+" augroup END
 
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-    " found' messages
-    set shortmess+=c
+" " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+"     " found' messages
+"     set shortmess+=c
 
-    " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-    inoremap <c-c> <ESC>
+"     " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+"     inoremap <c-c> <ESC>
 
-    " When the <Enter> key is pressed while the popup menu is visible, it only
-    " hides the menu. Use this mapping to close the menu and also start a new
-    " line.
-    " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+"     " When the <Enter> key is pressed while the popup menu is visible, it only
+"     " hides the menu. Use this mapping to close the menu and also start a new
+"     " line.
+"     " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-    " Use <TAB> to select the popup menu:
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"     " Use <TAB> to select the popup menu:
+"     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-au User Ncm2Plugin call ncm2#register_source({
-            \ 'name' : 'css',
-            \ 'priority': 9,
-            \ 'subscope_enable': 1,
-            \ 'scope': ['css','scss'],
-            \ 'mark': 'css',
-            \ 'word_pattern': '[\w\-]+',
-            \ 'complete_pattern': ':\s*',
-            \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-            \ })
+" au User Ncm2Plugin call ncm2#register_source({
+"             \ 'name' : 'css',
+"             \ 'priority': 9,
+"             \ 'subscope_enable': 1,
+"             \ 'scope': ['css','scss'],
+"             \ 'mark': 'css',
+"             \ 'word_pattern': '[\w\-]+',
+"             \ 'complete_pattern': ':\s*',
+"             \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+"             \ })
 
-" Press enter key to trigger snippet expansion
-" The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+" " Press enter key to trigger snippet expansion
+" " The parameters are the same as `:help feedkeys()`
+" inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
 
 " c-j c-k for moving in snippet
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
+
+
+" CoC completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
