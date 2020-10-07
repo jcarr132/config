@@ -45,6 +45,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
 " Plug 'racer-rust/vim-racer'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -72,6 +73,12 @@ set clipboard+=unnamedplus
 	set tabstop=2                   " One tab == four spaces.
   set cmdheight=1
   set updatetime=300
+  set foldmethod=syntax
+  set foldnestmax=10
+  set foldcolumn=1
+  let javaScript_fold=1
+  set nofoldenable
+  set foldlevel=2
 
     " colorscheme nord
 
